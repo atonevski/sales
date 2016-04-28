@@ -1,0 +1,7 @@
+<h2>Game '<%= @game.name %>'</h2>
+
+<ul>
+  <% Game.column_names.each do |column| %>
+    <li><%= column %>: <%= @game[column] %></li>
+  <% end %>
+</ul>

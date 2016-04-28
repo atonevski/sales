@@ -1,0 +1,19 @@
+/* disable spinner for input type number */
+/*
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] {-moz-appearance: textfield;}
+*/
+
+/* input[type=number] NO SPINNER */
+input[type=number].no-spinner { -moz-appearance: textfield; }
+input[type=number].no-spinner::-webkit-inner-spin-button,
+input[type=number].no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+   margin: 0;
+}
+
