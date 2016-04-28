@@ -15,6 +15,14 @@ RSpec.feature 'Users can create new games' do
     click_button 'Create Game'
 
     expect(page).to have_content 'Game has been created.'
+
+    game = Game.find_by name: 'Ново Лото 7/34'
+    expect(page.current_url).to eq game_url(game)
+
+    title = 'Sales - Games - Ново Лото 7/34'
+    expect(page).to have_title title
   end
+
+ 
 # Rails generate model game name:string type:string desc:text parent:integer price:decimal volume:integer commission:decimal
 end
