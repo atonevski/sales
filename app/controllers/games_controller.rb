@@ -14,7 +14,8 @@ class GamesController < ApplicationController
       flash[:notice] = 'Game has been created.'
       redirect_to @game
     else
-      # nothing, yet
+      flash.now[:alert] = 'Game has not been created.'
+      render 'new'
     end
   end
 
