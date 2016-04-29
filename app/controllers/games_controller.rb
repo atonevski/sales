@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   def index
-    
+    @games = Game.all
   end
 
   def new
@@ -26,6 +26,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit :id, :name, :type, :desc, :price, :parent, :volume, :commission
+    params.require(:game).permit :id, :name, :type, :desc, :price, :parent,
+      :volume, :commission
   end
 end

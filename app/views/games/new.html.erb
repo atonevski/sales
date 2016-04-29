@@ -1,6 +1,18 @@
 <h2>New Game</h2>
 <div class='row col-md-6'>
   <%= form_for @game, html: { class: 'form-horizontal' } do |f| %>
+    <!-- show errors -->
+    <% if @game.errors.any? %>
+      <div id='error_explanation' class='alert alert-danger'>
+        <h4><%= pluralize(@game.errors.count, 'error') %>
+          prohibited this game from being saved:</h4>
+        <ul>
+          <% @game.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <div class='form-group'>
       <%= f.label :id, 'ID', class: 'control-label col-md-2' %>
       <div class='col-md-10'>
@@ -11,7 +23,6 @@
     <div class='form-group'>
       <%= f.label :name, class: 'control-label col-md-2' %>
       <div class='col-md-10'>
-        <!-- attribute required: 'required', -->
         <%= f.text_field :name, class: 'form-control' %>
       </div>
     </div>
@@ -43,14 +54,15 @@
     <div class='form-group'>
       <%= f.label :volume, class: 'control-label col-md-2' %>
       <div class='col-md-10'>
-        <%= f.number_field :volume, class: 'no-spinner form-control', min: '100000', step: '1' %>
+        <%= f.number_field :volume, class: 'no-spinner form-control', min: '100000', 
+            step: '1' %>
       </div>
     </div>
     <div class='form-group'>
       <%= f.label :commission, class: 'control-label col-md-2' %>
       <div class='col-md-10'>
-        <%= f.number_field :commission, class: 'no-spinner form-control', min: '0.001', max: '0.999', 
-            step: '0.001', required: 'required' %>
+        <%= f.number_field :commission, class: 'no-spinner form-control', min: '0.001',
+            max: '0.999', step: '0.001', required: 'required' %>
       </div>
     </div>
 

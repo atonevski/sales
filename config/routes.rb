@@ -57,4 +57,7 @@ Rails.application.routes.draw do
   root 'games#index'
 
   resources :games
+
+  get 'about' =>  'static_pages#about'
+  get 'todo'  =>  'static_pages#todo'
 end
