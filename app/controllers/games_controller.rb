@@ -38,6 +38,14 @@ class GamesController < ApplicationController
     end
   end
 
+  def destroy
+    @game = Game.find params[:id]
+    @game.destroy
+    
+    flash[:notice] = 'Game has been deleted.'
+    redirect_to games_path
+  end
+
   private
 
   def game_params
