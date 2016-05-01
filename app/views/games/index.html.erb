@@ -18,14 +18,14 @@
     <tbody>
       <% @games.each do |game| %>
         <tr>
-          <td><%= game[:id] %></td>
-          <td><%= game[:name] %></td>
-          <td><%= game[:type] %></td>
-          <td><%= truncate game[:desc], length: 40 %></td>
-          <td><%= game[:parent] %></td>
-          <td><%= game[:price] %></td>
-          <td><%= game[:volume] %></td>
-          <td><%= game[:commission] %></td>
+          <td><%= game.id %></td>
+          <td><%= link_to game.name, game %></td>
+          <td><%= game.type %></td>
+          <td><%= truncate game.desc, length: 40 %></td>
+          <td><%= game.parent %></td>
+          <td><%= game.price %></td>
+          <td><%= game.volume %></td>
+          <td><%= game.commission %></td>
         </tr>
       <% end %>
     </tbody>
