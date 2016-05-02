@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  before_action :set_game, only: [:show, :edit, :update, :destroy]
+
   def index
     @games = Game.all
   end
@@ -20,15 +22,12 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find params[:id]
   end
 
   def edit
-    @game = Game.find params[:id]
   end
 
   def update
-    @game = Game.find params[:id]
     if @game.update game_params
       flash[:notice] = 'Game has been updated.'
       redirect_to @game
@@ -39,7 +38,6 @@ class GamesController < ApplicationController
   end
 
   def destroy
-    @game = Game.find params[:id]
     @game.destroy
     
     flash[:notice] = 'Game has been deleted.'
@@ -51,5 +49,12 @@ class GamesController < ApplicationController
   def game_params
     params.require(:game).permit :id, :name, :type, :desc, :price, :parent,
       :volume, :commission
+  end
+
+  def set_game
+    @game = Game.find params[:id]
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = 'The game you were looking for could not be found.'
+    redirect_to games_path
   end
 end
