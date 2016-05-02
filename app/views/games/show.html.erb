@@ -1,10 +1,20 @@
 <% title 'Games', @game.name %>
-<h2>Game '<%= @game.name %>'</h2>
-<%= link_to 'Edit Game', edit_game_path(@game) %> |
-<%= link_to 'Delete Game', game_path(@game), method: :delete,
-    data: { confirm: 'Are you sure you want to delete this game?' } %>
-<ul>
+<div class='page-header'>
+  <div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+      <%= link_to fa_icon('pencil') + ' Edit Game', edit_game_path(@game),
+          class: 'btn btn-primary' %>
+    </div>
+    <div class='btn-group'>
+      <%= link_to fa_icon('trash') + ' Delete Game', game_path(@game), method: :delete,
+          class: 'btn btn-danger',
+          data: { confirm: 'Are you sure you want to delete this game?' } %>
+    </div>
+  </div>
+  <h2>Game '<%= @game.name %>'</h2>
+</div>
+<dl class='dl-horizontal'>
   <% Game.column_names.each do |column| %>
-    <li><%= column %>: <%= @game[column] %></li>
+    <dt><%= column %></dt><dd><%= @game[column] %></dd>
   <% end %>
-</ul>
+</dl>
