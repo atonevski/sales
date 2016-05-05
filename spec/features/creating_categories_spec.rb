@@ -27,3 +27,4 @@ RSpec.feature 'Users can create new categories' do
     expect(page).to have_content "Amount can't be blank"
   end
 end
+#Rails generate model Category category:integer count:integer amount:decimal desc:text game:references

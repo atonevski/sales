@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426070352) do
+ActiveRecord::Schema.define(version: 20160505182011) do
+
+  create_table "categories", force: :cascade do |t|
+    t.integer  "category"
+    t.integer  "count"
+    t.decimal  "amount",     precision: 10, scale: 2
+    t.text     "desc"
+    t.integer  "game_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "categories", ["game_id"], name: "index_categories_on_game_id"
 
   create_table "games", force: :cascade do |t|
     t.string   "name"

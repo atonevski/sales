@@ -1,0 +1,49 @@
+<div class='col-md-6'>
+  <%= form_for [game, category], html: { class: 'form-horizontal' } do |f| %>
+    <!-- show errors -->
+    <% if category.errors.any? %>
+      <div id='error_explanation' class='alert alert-danger'>
+        <h4><%= pluralize(category.errors.count, 'error') %>
+          prohibited this category from being saved:</h4>
+        <ul>
+          <% category.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class='form-group'>
+      <%= f.label :category, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.number_field :category, class: 'no-spinner form-control', #required: "required",
+            min: '0', step: '1', placeholder: 'Unique int identifier', 
+            title: 'The tooltip is here!' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :count, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.number_field :count, class: 'no-spinner form-control', #required: "required",
+            min: '0', step: '1', placeholder: 'Winners for this category', 
+            title: 'The tooltip is here!' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :amount, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.number_field :amount, class: 'no-spinner form-control', min: '10',
+            placeholder: 'Winning amount',
+            step: '1' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :desc, 'Description', class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.text_area :desc, class: 'form-control', placeholder: 'Describe this category' %>
+      </div>
+    </div>
+
+    <%= f.submit class: 'btn btn-primary' %>
+  <% end %>
+</div>

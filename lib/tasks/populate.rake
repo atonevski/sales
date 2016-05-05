@@ -10,7 +10,7 @@ namespace :db do
       end
       next
     end
-    puts "Games table is empty. Nothing to do."
+    puts "Games table is empty. Nothing to purge."
   end
   
   desc 'Populate games table'

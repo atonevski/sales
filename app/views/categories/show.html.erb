@@ -1,0 +1,13 @@
+<header class='page-headder'>
+ <h2><%= @game.name %></h2> 
+</header>
+
+<header class='page-headder'>
+ <h3><%= @category.category %></h3> 
+</header>
+<dl class='dl-horizontal'>
+  <% Category.column_names.each do |column| %>
+    <% next if %W{ game_id created_at updated_at }.include? column %>
+    <dt><%= column %></dt><dd><%= @category[column] %></dd>
+  <% end %>
+</dl>

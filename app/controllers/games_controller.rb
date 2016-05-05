@@ -44,7 +44,7 @@ class GamesController < ApplicationController
     redirect_to games_path
   end
 
-  private
+private
 
   def game_params
     params.require(:game).permit :id, :name, :type, :desc, :price, :parent,
