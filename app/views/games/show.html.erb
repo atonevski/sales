@@ -16,3 +16,11 @@
     <dt><%= column %></dt><dd><%= @game[column] %></dd>
   <% end %>
 </dl>
+<header class='page-header'>
+  <div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+      <%= link_to 'New Category', new_game_category_path(@game), class: 'at-new' %>
+    </div>
+  </div>
+  <h3>Categories</h3>
+</header>

@@ -1,4 +1,7 @@
 class Game < ActiveRecord::Base
+
+  has_many :categories
+
   TYPES = %W{ INSTANT LOTTO NUMBER BINGO NEWSPAPER TOTO }
 
   # disable STI

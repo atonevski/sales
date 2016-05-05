@@ -56,7 +56,9 @@ Rails.application.routes.draw do
   
   root 'games#index'
 
-  resources :games
+  resources :games do 
+    resources :categories
+  end
 
   get 'about' =>  'static_pages#about'
   get 'todo'  =>  'static_pages#todo'

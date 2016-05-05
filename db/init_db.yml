@@ -15,7 +15,7 @@
   :parent: 
   :price: 15
   :volume: 
-  :commission: 
+  :commission: 0.06
 - :id: 3
   :name: "Лото плус"
   :type: LOTTO
@@ -23,7 +23,7 @@
   :parent: 
   :price: 30
   :volume: 
-  :commission: 
+  :commission: 0.06
 - :id: 4
   :name: "Лото плус Џокер"
   :type: NUMBER
@@ -31,7 +31,7 @@
   :parent: 3
   :price: 20
   :volume: 
-  :commission: 
+  :commission: 0.06
 - :id: 5
   :name: "ТОП 5"
   :type: LOTTO
@@ -39,7 +39,7 @@
   :parent: 
   :price: 15
   :volume: 
-  :commission: 
+  :commission: 0.06
 - :id: 6
   :name: "ТОП 5 ЏОКЕР"
   :type: NUMBER
@@ -47,7 +47,7 @@
   :parent: 5
   :price: 20
   :volume: 
-  :commission: 
+  :commission: 0.06
 - :id: 7
   :name: "Седма брзина"
   :type: INSTANT
@@ -55,7 +55,7 @@
   :parent: 
   :price: 40
   :volume: 1000000
-  :commission: 
+  :commission: 0.08
 - :id: 8
   :name: "ТВИНГОМАНИЈА"
   :type: INSTANT
@@ -71,7 +71,7 @@
   :parent: 
   :price: 40
   :volume: 2000000
-  :commission: 
+  :commission: 0.08
 - :id: 10
   :name: "ГАЛА БИНГО"
   :type: BINGO
@@ -111,7 +111,7 @@
   :parent: 2
   :price: 20
   :volume: 
-  :commission: 
+  :commission: 0.06
 - :id: 16
   :name: "Џамбо Бинго Н/В"
   :type: BINGO
@@ -143,7 +143,7 @@
   :parent: 
   :price: 40
   :volume: 1000000
-  :commission: 
+  :commission: 0.08
 - :id: 22
   :name: "Експрес лотарија"
   :type: INSTANT
@@ -151,7 +151,7 @@
   :parent: 
   :price: 25
   :volume: 500000
-  :commission: 
+  :commission: 0.09
 - :id: 23
   :name: "ПОДАРОК"
   :type: INSTANT
@@ -159,7 +159,7 @@
   :parent: 
   :price: 50
   :volume: 300000
-  :commission: 
+  :commission: 0.08
 - :id: 24
   :name: "Хороскоп"
   :type: INSTANT
@@ -167,7 +167,7 @@
   :parent: 
   :price: 20
   :volume: 1000000
-  :commission: 
+  :commission: 0.09
 - :id: 25
   :name: "Среќни тркала 3"
   :type: INSTANT
@@ -175,7 +175,7 @@
   :parent: 
   :price: 50
   :volume: 1000000
-  :commission: 
+  :commission: 0.08
 - :id: 30
   :name: "Среќни тркала 2"
   :type: INSTANT
@@ -183,7 +183,7 @@
   :parent: 
   :price: 40
   :volume: 1000000
-  :commission: 
+  :commission: 0.08
 - :id: 32
   :name: "БИНГО БУМ"
   :type: BINGO
@@ -191,7 +191,7 @@
   :parent: 
   :price: 60
   :volume: 
-  :commission: 
+  :commission: 0.09
 - :id: 33
   :name: "БИНГО ЏОКЕР"
   :type: NUMBER
@@ -199,7 +199,7 @@
   :parent: 32
   :price: 20
   :volume: 
-  :commission: 
+  :commission: 0.09
 - :id: 44
   :name: "Калинка"
   :type: INSTANT
@@ -215,7 +215,7 @@
   :parent: 
   :price: 30
   :volume: 500000
-  :commission: 
+  :commission: 0.08
 - :id: 50
   :name: "Ѕвезден пат"
   :type: INSTANT
@@ -239,7 +239,7 @@
   :parent: 
   :price: 30
   :volume: 1000000
-  :commission: 
+  :commission: 0.08
 - :id: 61
   :name: "ДЕТЕЛИНКА 2"
   :type: INSTANT
@@ -247,7 +247,7 @@
   :parent: 
   :price: 30
   :volume: 1000000
-  :commission: 
+  :commission: 0.08
 - :id: 70
   :name: "ТОТО ПЛУС К"
   :type: TOTO
