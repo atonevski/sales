@@ -3,7 +3,8 @@ class Category < ActiveRecord::Base
 
   validates :category, # uniquenes inside game
     presence: true,
-    numericality: { only_integer: true, greater_than: 0 }
+    numericality: { only_integer: true, greater_than: 0 },
+    uniqueness: { scope: :game_id }
 
   validates :count,
     presence: true,

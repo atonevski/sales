@@ -25,3 +25,26 @@
   </div>
   <h3>Categories</h3>
 </header>
+<div class='table-responsive'> 
+  <table class='table table-striped table-hover table-condensed'>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th style='text-align: right'>Count</th>
+        <th style='text-align: right'>Amount</th>
+        <th style='text-align: center'>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @game.categories.each do |cat| %>
+        <tr>
+          <td><%= cat.category %></td>
+          <td align='right'><%= number_with_delimiter cat.count %></td>
+          <td align='right'>
+            <%= number_with_precision cat.amount, precision: 0, delimiter: ',' %></td>
+          <td><%= cat.desc.truncate(40) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

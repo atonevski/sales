@@ -6,6 +6,7 @@ namespace :db do
       print "Purge Games? (y/n) "
       y_n = STDIN.gets.chomp.upcase[0]
       if y_n == 'Y'
+        Category.delete_all
         Game.delete_all
       end
       next
@@ -15,10 +16,16 @@ namespace :db do
   
   desc 'Populate games table'
   task init_games: [:environment, :purge_games] do
-    next if Game.count > 0
+    next if Game.count > 0 or Category.count > 0
     h = YAML::load File.open(Rails.root + 'db/init_db.yml')
+    inst_cat = YAML::load File.open(Rails.root + 'db/inst_cat.yml')
     h[:games].each do |g|
       Game.create g
+      cat = inst_cat.find { |x| x[:id] == g[:id] }
+      next unless cat
+      cat[:categories].each do |c|
+        Category.create c.merge(game_id: g[:id])
+      end
     end
   end
 end
