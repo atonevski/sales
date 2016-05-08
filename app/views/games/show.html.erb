@@ -38,7 +38,7 @@
     <tbody>
       <% @game.categories.each do |cat| %>
         <tr>
-          <td><%= cat.category %></td>
+          <td><%= link_to cat.category, game_category_path(@game, cat) %></td>
           <td align='right'><%= number_with_delimiter cat.count %></td>
           <td align='right'>
             <%= number_with_precision cat.amount, precision: 0, delimiter: ',' %></td>

@@ -1,13 +1,16 @@
 <header class='page-headder'>
- <h2><%= @game.name %></h2> 
+  <div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+      <%= link_to 'Edit Category', [ :edit, @game, @category ],
+          class: 'at-edit' %>
+    </div>
+  </div>
+ <h2><%= @game.name %> <small>category <%= @category.category %></small></h2> 
 </header>
 
-<header class='page-headder'>
- <h3><%= @category.category %></h3> 
-</header>
 <dl class='dl-horizontal'>
   <% Category.column_names.each do |column| %>
     <% next if %W{ game_id created_at updated_at }.include? column %>
-    <dt><%= column %></dt><dd><%= @category[column] %></dd>
+    <dt><%= column %></dt><dd id='<%= column %>'><%= @category[column] %></dd>
   <% end %>
 </dl>

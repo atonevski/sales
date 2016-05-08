@@ -21,6 +21,19 @@ class CategoriesController < ApplicationController
   def show
   end
 
+  def edit
+  end
+  
+  def update
+    if @category.update category_params
+      flash[:notice] = 'Category has been updated.'
+      redirect_to [ @game, @category ]
+    else
+      flash.now[:alert] = 'Category has not been updated.'
+      render 'edit'
+    end
+  end
+
 private
   def set_game
     @game = Game.find params[:game_id]
