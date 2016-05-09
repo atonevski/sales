@@ -21,4 +21,11 @@ RSpec.feature 'Users can edit existing categories' do
       expect(page).not_to have_content category.amount
     end
   end
+
+  scenario 'with invalid attributes' do
+    fill_in 'Category', with: ''
+    click_button 'Update Category'
+
+    expect(page).to have_content 'Category has not been updated.'
+  end
 end

@@ -34,6 +34,13 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def destroy
+    @category.destroy
+    
+    flash[:notice] = 'Category has been deleted.'
+    redirect_to @game
+  end
+
 private
   def set_game
     @game = Game.find params[:game_id]

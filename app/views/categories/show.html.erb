@@ -4,6 +4,10 @@
       <%= link_to 'Edit Category', [ :edit, @game, @category ],
           class: 'at-edit' %>
     </div>
+    <div class='btn-group'>
+      <%= link_to 'Delete Category', [ @game, @category ], method: :delete, class: 'at-delete',
+          data: { confirm: 'Are you sure you want to delete this category?' } %>
+    </div>
   </div>
  <h2><%= @game.name %> <small>category <%= @category.category %></small></h2> 
 </header>

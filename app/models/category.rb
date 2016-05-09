@@ -12,5 +12,5 @@ class Category < ActiveRecord::Base
 
   validates :amount,
     presence: true,
-    numericality: { only_integer: true, greater_than: 0 }
+    numericality: { greater_than: 0 } # problems with validation: only_integer: true
 end
