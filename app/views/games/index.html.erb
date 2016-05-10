@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @games.each do |game| %>
+      <% @games.order(:id).each do |game| %>
         <tr>
           <td align='center'><%= game.id %></td>
           <td><%= link_to game.name, game %></td>

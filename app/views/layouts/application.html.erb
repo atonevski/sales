@@ -34,6 +34,8 @@
               <%= link_to 'Home', root_path %></li>
             <li class='<%= 'active' if current_page? '/todo' %>'>
               <%= link_to 'Todo', todo_path %></li>
+            <li class='<%= 'active' if current_page? '/users/sign_up' %>'>
+              <%= link_to 'Sign up', new_user_registration_path %></li>
           </ul>
         </div>
       </div>
