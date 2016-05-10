@@ -31,27 +31,26 @@
         <div id='collapse' class='collapse navbar-collapse'>
           <ul class='nav navbar-nav'>
             <li class='<%= 'active' if current_page? '/' %>'>
-              <%= link_to 'Home', root_path %></li>
+              <%= link_to 'Home', root_path, class: 'at-nav-home' %></li>
             <li class='<%= 'active' if current_page? '/todo' %>'>
               <%= link_to 'Todo', todo_path %></li>
             <!-- navbar-right -->
             <% unless user_signed_in? %>
               <li class='<%= 'active' if current_page? '/users/sign_up' %>'>
-                <%= link_to  content_tag(:i, '', class: 'fa fa-user-plus') + ' Sign up',
-                    new_user_registration_path %></li>
+                <%= link_to  'Sign up', new_user_registration_path, 
+                    class: 'at-nav-signup' %></li>
               <li class='<%= 'active' if current_page? '/users/sign_in' %>'>
-                <%= link_to content_tag(:i, '', class: 'fa fa-sign-in') + ' Sign in',
-                    new_user_session_path %></li>
+                <%= link_to 'Sign in', new_user_session_path, class: 'at-nav-signin'%></li>
             <% end %>
           </ul>
           <% if user_signed_in? %>
             <div class='navbar-right'> 
                 <p class='navbar-text'>
-                <small>Signed in as <%= current_user.email %></small></p>
+                  <span class='label label-default'>Signed in as
+                    <%= current_user.email %></span></p>
                 <ul class='nav navbar-nav'>
-                  <li><%= link_to content_tag(:i, '', class: 'fa fa-sign-out') + ' Sign out',
-                          destroy_user_session_path, method: :delete
-                          %></li>
+                  <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete,
+                          class: 'at-nav-signout' %></li>
                 </ul>
             </div>
           <% end %>

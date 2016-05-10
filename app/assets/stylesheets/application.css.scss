@@ -56,10 +56,28 @@ a.at-delete {
   }
 }
 
-a.at-sign-out {
-  font-style: normal;
-  text-decoration: inherit;
+/* nav icons */
+a.at-nav-signup, a.at-nav-signin, a.at-nav-signout, a.at-nav-home {
+  &:before {
+    font-family: 'FontAwesome';
+    padding-right: 0.35em;
+  }
+}
+
+a.at-nav-signup {
+  &:before { @extend .fa-user-plus; }
+}
+
+a.at-nav-signin {
+  &:before { @extend .fa-sign-in; }
+}
+
+a.at-nav-signout {
   &:before { @extend .fa-sign-out; }
+}
+
+a.at-nav-home {
+  &:before { @extend .fa-home; }
 }
 
 /* flash messages styling */
