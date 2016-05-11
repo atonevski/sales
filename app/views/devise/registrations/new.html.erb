@@ -1,0 +1,45 @@
+<header class='page-header'>
+  <h2>Sign up</h2>
+</header>
+
+<div class='row col-md-6'>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name),
+                html: { class: 'form-horizontal' }) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="field form-group">
+      <%= f.label :email, class: 'control-label col-md-3' %>
+      <div class='col-md-9'>
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+    </div>
+
+    <div class="field form-group">
+      <div class='control-label col-md-3'>
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+          <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+        <% end %>
+      </div>
+      <div class='col-md-9'>
+        <%= f.password_field :password, autocomplete: "off" %>
+      </div>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :password_confirmation, class: 'control-label col-md-3'  %>
+      <div class='col-md-9'>
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <div class=' col-md-offset-3 col-md-9'>
+        <%= f.submit "Sign up", class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='form-group col-md-offset-3 col-md-9'>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
