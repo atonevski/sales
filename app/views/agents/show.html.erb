@@ -1,0 +1,19 @@
+<% title 'Agents', @agent.name %>
+<header class='page-header'>
+  <div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+      <%= link_to 'Edit Agent', edit_agent_path(@agent), class: 'at-edit' %>
+    </div>
+    <div class='btn-group'>
+      <%= link_to 'Delete Agent', agent_path(@agent), method: :delete, class: 'at-delete',
+          data: { confirm: 'Are you sure you want to delete this agent?' } %>
+    </div>
+  </div>
+  <h2>Agent <small><%= @agent.name %></small></h2>
+</header>
+<dl class='dl-horizontal'>
+  <% Agent.column_names.each do |column| %>
+    <% next if %W{ created_at updated_at }.include? column %>
+    <dt><%= column %></dt><dd><%= @agent[column] %></dd>
+  <% end %>
+</dl>

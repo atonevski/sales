@@ -61,6 +61,9 @@ Rails.application.routes.draw do
     resources :categories
   end
 
+  resources :agents do 
+    resources :terminals
+  end
   get 'about' =>  'static_pages#about'
   get 'todo'  =>  'static_pages#todo'
 end

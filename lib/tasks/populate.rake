@@ -28,4 +28,28 @@ namespace :db do
       end
     end
   end
+
+  desc 'Purge agents table'
+  task :purge_agents => :environment do
+    if Agent.count > 0
+      puts "There are somme records in Agents table"
+      print "Purge Agents? (y/n) "
+      y_n = STDIN.gets.chomp.upcase[0]
+      if y_n == 'Y'
+        # Category.delete_all # This should be Terminal.delete_all, take care with sales table...
+        Agent.delete_all
+      end
+      next
+    end
+    puts "Agents table is empty. Nothing to purge."
+  end
+
+  desc 'Populate agents table'
+  task init_agents: [:environment, :purge_agents] do
+    next if Agent.count > 0 # or Category.count > 0 # should be Terminal.count
+    h = YAML::load File.open(Rails.root + 'db/init_db.yml')
+    h[:agents].each do |a|
+      Agent.create a
+    end
+  end
 end

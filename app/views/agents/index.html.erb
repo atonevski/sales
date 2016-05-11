@@ -1,0 +1,26 @@
+<header class='page-header'>
+  <div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+      <%= link_to 'New Agent', new_agent_path, class: 'at-new' %>    
+    </div>
+  </div>
+  <h2>Agents</h2>
+</header>
+<div class='table-responsive'>
+  <table class='table table-striped table-condensed table-hover'>
+    <thead>
+      <tr>
+        <th style='text-align: center'>Id</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @agents.order(:id).each do |agent| %>
+        <tr>
+          <td align='center'><%= agent.id %></td>
+          <td><%= link_to agent.name, agent %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

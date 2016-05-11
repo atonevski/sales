@@ -57,7 +57,8 @@ a.at-delete {
 }
 
 /* nav icons */
-a.at-nav-signup, a.at-nav-signin, a.at-nav-signout, a.at-nav-home {
+a.at-nav-signup, a.at-nav-signin, a.at-nav-signout, a.at-nav-home,
+a.at-nav-agents {
   &:before {
     font-family: 'FontAwesome';
     padding-right: 0.35em;
@@ -78,6 +79,10 @@ a.at-nav-signout {
 
 a.at-nav-home {
   &:before { @extend .fa-home; }
+}
+
+a.at-nav-agents {
+  &:before { @extend .fa-users; }
 }
 
 /* flash messages styling */
