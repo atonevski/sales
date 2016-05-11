@@ -51,7 +51,7 @@
           <% if user_signed_in? %>
             <div class='navbar-right'> 
                 <p class='navbar-text'>
-                  <span class='label label-default'>Signed in as
+                  <span class='text-info'>Signed in as
                     <%= current_user.email %></span></p>
                 <ul class='nav navbar-nav'>
                   <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete,

@@ -24,6 +24,25 @@ class AgentsController < ApplicationController
   def show
   end
 
+  def edit
+  end
+
+  def update
+    if @agent.update agent_params
+      flash[:notice] = 'Agent has been updated.'
+      redirect_to @agent
+    else
+      flash.now[:alert] = 'Agent has not been updated.'
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @agent.destroy
+    
+    flash[:notice] = 'Agent has been deleted.'
+    redirect_to agents_path
+  end
 private
 
   def agent_params

@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Users can create agents' do 
-  # let(:agent) { FactoryGirl.create :agent }
-
   before do
     visit '/'
     click_link 'Agents'
