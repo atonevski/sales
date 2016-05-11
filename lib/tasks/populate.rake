@@ -36,7 +36,7 @@ namespace :db do
       print "Purge Agents? (y/n) "
       y_n = STDIN.gets.chomp.upcase[0]
       if y_n == 'Y'
-        # Category.delete_all # This should be Terminal.delete_all, take care with sales table...
+        Terminal.delete_all
         Agent.delete_all
       end
       next
@@ -51,5 +51,9 @@ namespace :db do
     h[:agents].each do |a|
       Agent.create a
     end
+    h[:terminals].each do |t|
+      Terminal.create t
+    end
+   
   end
 end

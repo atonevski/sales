@@ -1,0 +1,70 @@
+<div class='col-md-6'>
+  <%= form_for [agent, terminal], html: { class: 'form-horizontal' } do |f| %>
+    <!-- show errors -->
+    <% if terminal.errors.any? %>
+      <div id='error_explanation' class='alert alert-danger'>
+        <h4><%= pluralize(terminal.errors.count, 'error') %>
+          prohibited this terminal from being saved:</h4>
+        <ul>
+          <% terminal.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class='form-group'>
+      <%= f.label :id, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.number_field :id, class: 'no-spinner form-control', required: "required",
+            min: '100000', max: '999999', step: '1', placeholder: 'Unique int identifier' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :name, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.text_field :name, class: 'form-control', placeholder: 'Name of the POS' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :city, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.text_field :city, class: 'form-control', placeholder: 'City', 
+            required: "required" %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :address, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.text_field :address, class: 'form-control', placeholder: 'Street name, num.' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :tel, 'Telephone', class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.text_field :tel, class: 'form-control', placeholder: 'Telephone numbers' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :lat, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.number_field :lat, class: 'no-spinner form-control', 
+            placeholder: 'Latitude', step: '0.000000001' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :lng, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.number_field :lng, class: 'no-spinner form-control', 
+            placeholder: 'Longitude', step: '0.000000001' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <div class='col-md-offset-2 col-md-10'>
+        <%= f.submit class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>

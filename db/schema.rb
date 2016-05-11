@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511095458) do
+ActiveRecord::Schema.define(version: 20160511171613) do
 
   create_table "agents", force: :cascade do |t|
     t.string   "name"
@@ -42,6 +42,20 @@ ActiveRecord::Schema.define(version: 20160511095458) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
+
+  create_table "terminals", force: :cascade do |t|
+    t.string   "name"
+    t.string   "city"
+    t.string   "address"
+    t.string   "tel"
+    t.decimal  "lat",        precision: 12, scale: 9
+    t.decimal  "lng",        precision: 12, scale: 9
+    t.integer  "agent_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "terminals", ["agent_id"], name: "index_terminals_on_agent_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
