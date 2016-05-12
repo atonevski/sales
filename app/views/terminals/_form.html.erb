@@ -49,14 +49,14 @@
     <div class='form-group'>
       <%= f.label :lat, class: 'control-label col-md-2' %>
       <div class='col-md-10'>
-        <%= f.number_field :lat, class: 'no-spinner form-control', 
+        <%= f.number_field :lat, id: 'lat', class: 'no-spinner form-control', 
             placeholder: 'Latitude', step: '0.000000001' %>
       </div>
     </div>
     <div class='form-group'>
       <%= f.label :lng, class: 'control-label col-md-2' %>
       <div class='col-md-10'>
-        <%= f.number_field :lng, class: 'no-spinner form-control', 
+        <%= f.number_field :lng, id: 'lng', class: 'no-spinner form-control', 
             placeholder: 'Longitude', step: '0.000000001' %>
       </div>
     </div>
@@ -67,4 +67,9 @@
       </div>
     </div>
   <% end %>
+</div>
+<div class='col-md-6'>
+  <div id='map'>
+    <p>...</p>
+  </div>
 </div>
