@@ -1,5 +1,5 @@
 class Agent < ActiveRecord::Base
-  has_many :terminals
+  has_many :terminals, dependent: :delete_all
 
   validates :id, 
     presence:     true,

@@ -36,11 +36,10 @@
               <%= link_to 'Agents', agents_path, class: 'at-nav-agents' %></li>
             <li class='<%= 'active' if current_page? '/todo' %>'>
               <%= link_to 'Todo', todo_path %></li>
-            <!-- nav-divider -->
-            <p class="navbar-text">|</p>
-            <li role="separator" class="nav-divider"></li>
             <!-- navbar-right -->
             <% unless user_signed_in? %>
+              <!-- nav-divider -->
+              <p class="navbar-text">|</p>
               <li class='<%= 'active' if current_page? '/users/sign_up' %>'>
                 <%= link_to  'Sign up', new_user_registration_path, 
                     class: 'at-nav-signup' %></li>

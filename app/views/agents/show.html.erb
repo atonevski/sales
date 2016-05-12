@@ -45,10 +45,10 @@
             <%= link_to term.id, agent_terminal_path(@agent, term) %></td>
           <td><%= term.name %></td>
           <td><%= term.city %></td>
-          <td><%= term.address %></td>
-          <td><%= term.tel %></td>
-          <td><%= term.lat %></td>
-          <td><%= term.lng %></td>
+          <td><%= truncate term.address, length: 40 %></td>
+          <td><%= truncate term.tel, length: 15 %></td>
+          <td><%= number_with_precision term.lat, precision: 6 %></td>
+          <td><%= number_with_precision term.lng, precision: 6 %></td>
         </tr>
       <% end %>
     </tbody>

@@ -1,4 +1,4 @@
 <header class='page-header'>
-  <h2>Edit Category <small><%= @game.name %></small></h2>
+  <h2>Edit Category <small><%= @category.category %> for <%= @game.name %></small></h2>
 </header>
 <%= render 'form', game: @game, category: @category %>

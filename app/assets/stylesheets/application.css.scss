@@ -89,3 +89,19 @@ a.at-nav-agents {
 .alert-notice { @extend .alert-success; }
 .alert-alert  { @extend .alert-danger; }
 
+/* navbar active underlined style */
+.navbar-default {
+    background-color: #fff;
+}
+.navbar-default .navbar-nav > li {
+    background-color: #fff;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #333;
+    border-bottom: 1px solid transparent;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #fff;
+    color: #439348;
+    border-bottom: 1px solid #439348;
+}

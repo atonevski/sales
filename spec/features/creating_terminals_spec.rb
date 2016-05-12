@@ -22,13 +22,14 @@ RSpec.feature 'Users can create new tickets' do
   end
 
   scenario 'when providing invalid attributes' do
+    FactoryGirl.create :terminal, id: 1, name: 'Terminal no. 1'
+
     fill_in 'Name', with: 'Terminal no. 1' # simulate non-uniqueness
     click_button 'Create Terminal'
 
     expect(page).to have_content 'Terminal has not been created.'
     expect(page).to have_content "Id can't be blank"
-    # expect(page).to have_content "Name can't be blank"
-    # expect(page).to have_content "Name has already been taken"
+    expect(page).to have_content "Name has already been taken"
   end
 end
 
