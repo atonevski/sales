@@ -16,7 +16,8 @@
     <div class='form-group'>
       <%= f.label :id, class: 'control-label col-md-2' %>
       <div class='col-md-10'>
-        <%= f.number_field :id, class: 'no-spinner form-control', required: "required",
+        <%= f.number_field :id, id: 'id', class: 'no-spinner form-control',
+            required: "required",
             min: '100000', max: '999999', step: '1', placeholder: 'Unique int identifier' %>
       </div>
     </div>

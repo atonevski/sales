@@ -9,13 +9,13 @@ RSpec.feature 'Users can create new tickets' do
   end
 
   scenario 'with valid attributes' do
-    fill_in 'Id', with: 1
-    fill_in 'Name', with: 'Terminal no. 1'
-    fill_in 'City', with: 'New York'
-    fill_in 'Address', with: 'Street no. 1'
-    fill_in 'Tel', with: '111-222-124'
-    fill_in 'Lat', with: 41.994839
-    fill_in 'Lng', with: 21.433391
+    fill_in :id, with: 1
+    fill_in :name, with: 'Terminal no. 1'
+    fill_in :city, with: 'New York'
+    fill_in :address, with: 'Street no. 1'
+    fill_in :tel, with: '111-222-124'
+    fill_in :lat, with: 41.994839
+    fill_in :lng, with: 21.433391
 
     click_button 'Create Terminal'
     expect(page).to have_content 'Terminal has been created.'
@@ -24,7 +24,7 @@ RSpec.feature 'Users can create new tickets' do
   scenario 'when providing invalid attributes' do
     FactoryGirl.create :terminal, id: 1, name: 'Terminal no. 1'
 
-    fill_in 'Name', with: 'Terminal no. 1' # simulate non-uniqueness
+    fill_in :name, with: 'Terminal no. 1' # simulate non-uniqueness
     click_button 'Create Terminal'
 
     expect(page).to have_content 'Terminal has not been created.'

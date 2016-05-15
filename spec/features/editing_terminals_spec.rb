@@ -10,7 +10,7 @@ RSpec.feature 'Users can edit terminals' do
   end
 
   scenario 'with valid attributes' do
-    fill_in 'Name', with: 'Terminal no. 2'
+    fill_in :name, with: 'Terminal no. 2'
     click_button 'Update Terminal'
 
     expect(page).to have_content 'Terminal has been updated.'
@@ -23,7 +23,7 @@ RSpec.feature 'Users can edit terminals' do
   end
 
   scenario 'with invalid attributes' do
-    fill_in 'Name', with: ''
+    fill_in :name, with: ''
     click_button 'Update Terminal'
 
     expect(page).to have_content 'Terminal has not been updated.'
