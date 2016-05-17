@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.feature 'Users can create agents' do 
   before do
+    login_as FactoryGirl.create(:user, :admin)
+
     visit '/'
     click_link 'Agents'
     click_link 'New Agent'

@@ -73,7 +73,7 @@ a.at-nav-signout { &:before { @extend .fa-sign-out; } }
 
 a.at-nav-home { &:before { @extend .fa-home; } }
 
-a.at-nav-agents { &:before { @extend .fa-users; } }
+a.at-nav-agents { &:before { @extend .fa-object-group; } }
 
 a.at-nav-todo { &:before { @extend .fa-pencil-square-o; } }
 
