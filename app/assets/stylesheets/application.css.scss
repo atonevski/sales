@@ -6,6 +6,8 @@ $font-family-base: 'Open Sans';
 @import 'bootstrap';
 @import 'font-awesome';
 
+@import 'admin/application';
+
 /* navigation bar */
 body { padding-top: 70px; }
 
@@ -97,3 +99,4 @@ a.at-nav-todo { &:before { @extend .fa-pencil-square-o; } }
     color: #439348;
     border-bottom: 1px solid #439348;
 }
+
