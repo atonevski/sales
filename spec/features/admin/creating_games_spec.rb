@@ -2,11 +2,13 @@ require 'rails_helper'
 
 RSpec.feature 'Users can create new games' do
   before do
+    login_as FactoryGirl.create(:user, :admin)
+
     visit '/'
 
     click_link 'New Game'
 
-    fill_in 'ID',         with: 2
+    fill_in :id,         with: 2
     fill_in 'Name',       with: 'Ново Лото 7/34'
     fill_in 'Price',      with: 20
     select  'LOTTO',      from: 'Type'
@@ -37,7 +39,7 @@ RSpec.feature 'Users can create new games' do
 
     click_link 'New Game'
 
-    fill_in 'ID',         with: 2
+    fill_in :id,          with: 2
     fill_in 'Name',       with: 'Ново Лото 7/34'
     fill_in 'Price',      with: 20
     select  'LOTTO',      from: 'Type'

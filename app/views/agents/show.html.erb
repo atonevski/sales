@@ -5,7 +5,7 @@
       <%= link_to 'Edit Agent', edit_agent_path(@agent), class: 'at-edit' %>
     </div>
     <div class='btn-group'>
-      <%= link_to 'Delete Agent', agent_path(@agent), method: :delete, class: 'at-delete',
+      <%= link_to 'Delete Agent', admin_agent_path(@agent), method: :delete, class: 'at-delete',
           data: { confirm: 'Are you sure you want to delete this agent?' } %>
     </div>
   </div>

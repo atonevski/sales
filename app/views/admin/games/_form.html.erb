@@ -1,0 +1,80 @@
+<div class='row col-md-6'>
+  <%= form_for [ :admin, game ], html: { class: 'form-horizontal' } do |f| %>
+    <!-- show errors -->
+    <% if game.errors.any? %>
+      <div id='error_explanation' class='alert alert-danger'>
+        <h4><%= pluralize(game.errors.count, 'error') %>
+          prohibited this game from being saved:</h4>
+        <ul>
+          <% game.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class='form-group'>
+      <%= f.label :id, 'Id', class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.number_field :id, id: 'id', class: 'no-spinner form-control',
+            required: "required",
+            min: '0', step: '1', placeholder: 'Unique int identifier' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :name, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.text_field :name, class: 'form-control', required: 'required',
+            placeholder: 'Name of the game as it appears on the system' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :type, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.select :type, Game::TYPES, {}, class: 'form-control', required: 'required',
+            placeholder: 'Select from predefind types', title: 'Select from predefind types' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :desc, 'Description', class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.text_area :desc, class: 'form-control', 
+            placeholder: 'Describe the game including facts like: game initiation, date the game eventually ended, etc.' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :parent, 'Parent game', class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.number_field :parent, class: 'no-spinner form-control',
+            placeholder: 'ID of the parent game' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :price, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.number_field :price, class: 'no-spinner form-control', required: 'required',
+            min: '0', step: '0.5', placeholder: 'NNN.NN' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :volume, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.number_field :volume, class: 'no-spinner form-control', min: '100000', 
+            step: '1', placeholder: 'Volume of the instant game series' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :commission, class: 'control-label col-md-2' %>
+      <div class='col-md-10'>
+        <%= f.number_field :commission, class: 'no-spinner form-control', min: '0.001',
+            max: '0.999', step: '0.001', required: 'required', 
+            placeholder: 'Required for all newly created games' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <div class='col-md-offset-2 col-md-10'>
+        <%= f.submit class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,24 +1,8 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :edit, :update]
 
   def index
     @games = Game.all
-  end
-
-  def new
-    @game = Game.new 
-  end
-
-  def create
-    @game = Game.new game_params
-
-    if @game.save
-      flash[:notice] = 'Game has been created.'
-      redirect_to @game
-    else
-      flash.now[:alert] = 'Game has not been created.'
-      render 'new'
-    end
   end
 
   def show
@@ -35,13 +19,6 @@ class GamesController < ApplicationController
       flash.now[:alert] = 'Game has not been updated.'
       render 'edit'
     end
-  end
-
-  def destroy
-    @game.destroy
-    
-    flash[:notice] = 'Game has been deleted.'
-    redirect_to games_path
   end
 
 private

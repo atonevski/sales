@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Users can delete games' do
+  before do
+    login_as FactoryGirl.create :user, :admin
+  end
+
   scenario 'successfully' do
     FactoryGirl.create :game, name: 'Ново Лото 7/34'
 

@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    root 'application#index'
-  end
-
-  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -61,13 +56,22 @@ Rails.application.routes.draw do
   
   root 'games#index'
 
-  resources :games do 
+  resources :games, only: [ :index, :show, :edit, :update ] do 
     resources :categories
   end
 
-  resources :agents do 
+  resources :agents, only: [ :index, :show, :edit, :update ] do 
     resources :terminals
   end
+
   get 'about' =>  'static_pages#about'
   get 'todo'  =>  'static_pages#todo'
+
+  namespace :admin do
+    root 'application#index'
+    resources :games,  only: [ :new, :create, :destroy ]
+    resources :agents, only: [ :new, :create, :destroy ]
+  end
+
+  devise_for :users
 end
