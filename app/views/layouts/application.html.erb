@@ -42,6 +42,12 @@
               <%= link_to 'Agents', agents_path, class: 'at-nav-agents' %></li>
             <li class='<%= 'active' if current_page? '/todo' %>'>
               <%= link_to 'Todo', todo_path, class: 'at-nav-todo' %></li>
+            <% admins_only do %>
+              <p class='navbar-text'>|</p>
+              <li>
+                <%= link_to 'Admin', admin_root_path, class: 'at-nav-admin' %>
+              </li>
+            <% end %>
             <!-- navbar-right -->
             <% unless user_signed_in? %>
               <!-- nav-divider -->

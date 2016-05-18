@@ -60,24 +60,21 @@ a.at-delete {
 
 /* nav icons */
 a.at-nav-signup, a.at-nav-signin, a.at-nav-signout, a.at-nav-home,
-a.at-nav-agents, a.at-nav-todo {
+a.at-nav-agents, a.at-nav-todo, a.at-nav-admin, a.at-nav-users {
   &:before {
     font-family: 'FontAwesome';
     padding-right: 0.35em;
   }
 }
 
-a.at-nav-signup { &:before { @extend .fa-user-plus; } }
-
-a.at-nav-signin { &:before { @extend .fa-sign-in; } }
-
-a.at-nav-signout { &:before { @extend .fa-sign-out; } }
-
-a.at-nav-home { &:before { @extend .fa-home; } }
-
-a.at-nav-agents { &:before { @extend .fa-object-group; } }
-
-a.at-nav-todo { &:before { @extend .fa-pencil-square-o; } }
+a.at-nav-signup   { &:before { @extend .fa-user-plus; } }
+a.at-nav-signin   { &:before { @extend .fa-sign-in; } }
+a.at-nav-signout  { &:before { @extend .fa-sign-out; } }
+a.at-nav-home     { &:before { @extend .fa-home; } }
+a.at-nav-agents   { &:before { @extend .fa-object-group; } }
+a.at-nav-todo     { &:before { @extend .fa-pencil-square-o; } }
+a.at-nav-admin    { &:before { @extend .fa-user-secret; } }
+a.at-nav-users    { &:before { @extend .fa-users; } }
 
 /* flash messages styling */
 .alert-notice { @extend .alert-success; }

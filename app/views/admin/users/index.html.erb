@@ -1,0 +1,36 @@
+<header class='page-header'>
+  <div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+      <%= link_to 'New User', new_admin_user_path, class: 'at-new' %>
+    </div>
+  </div>
+  <h2>Games</h2>
+</header>
+<div class='table-responsive'>
+  <table class='table table-striped table-condensed table-hover'>
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Admin</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+        <th>Sign in count</th>
+        <th>Last sign in at</th>
+        <th>Last sign in ip</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |u| %>
+        <tr>
+          <td><%= link_to u.email, [ :admin, u ] %></td>
+          <td><%= u.admin? ? 'Admin' : '' %></td>
+          <td><%= u.created_at %></td>
+          <td><%= u.updated_at %></td>
+          <td><%= u.sign_in_count %></td>
+          <td><%= u.last_sign_in_at %></td>
+          <td><%= u.last_sign_in_ip %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
