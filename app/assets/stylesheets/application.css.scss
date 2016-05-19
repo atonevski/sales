@@ -25,7 +25,7 @@ input[type=number].no-spinner::-webkit-outer-spin-button {
 }
 
 /* at-style buttons */
-a.at-new, a.at-edit, a.at-delete {
+a.at-new, a.at-edit, a.at-delete, a.at-archive {
   @extend .btn;
 
   &:before {
@@ -55,6 +55,14 @@ a.at-delete {
 
   &:before {
     @extend .fa-trash-o;
+  }
+}
+
+a.at-archive {
+  @extend .btn-danger;
+
+  &:before {
+    @extend .fa-archive;
   }
 }
 

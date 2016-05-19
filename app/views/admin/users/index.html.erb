@@ -12,6 +12,7 @@
       <tr>
         <th>Email</th>
         <th>Admin</th>
+        <th>Archive</th>
         <th>Created at</th>
         <th>Updated at</th>
         <th>Sign in count</th>
@@ -24,6 +25,7 @@
         <tr>
           <td><%= link_to u.email, [ :admin, u ] %></td>
           <td><%= u.admin? ? 'Admin' : '' %></td>
+          <td><%= u.archived_at ? 'Archive' : '' %></td>
           <td><%= u.created_at %></td>
           <td><%= u.updated_at %></td>
           <td><%= u.sign_in_count %></td>
