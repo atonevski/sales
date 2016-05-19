@@ -1,0 +1,14 @@
+<header class='page-header'>
+  <div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+      <%= link_to 'Edit User', [ :edit, :admin, @user ], class: 'at-edit' %>
+    </div>
+  </div>
+ <h2>User <small><%= @user.email %></small></h2> 
+</header>
+
+<dl class='dl-horizontal'>
+  <% User.column_names.each do |column| %>
+    <dt><%= column %></dt><dd id='<%= column %>'><%= @user[column] %></dd>
+  <% end %>
+</dl>
