@@ -6,6 +6,14 @@ class User < ActiveRecord::Base
 
   def archive!
     # we only archive once and keep this timestamp
-    self.update(archived_at: Time.now) unless self.archived_at
+    self.update(archived_at: Time.now) unless archived_at
+  end
+
+  def active_for_authentication?
+    super && archived_at.nil?
+  end
+
+  def inactive_message
+    archived_at.nil? ? super : :archived
   end
 end
