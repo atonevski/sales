@@ -13,9 +13,12 @@ class GamesController < ApplicationController
   end
 
   def edit
+    authorize @game, :update?
   end
 
   def update
+    authorize @game, :update?
+
     if @game.update game_params
       flash[:notice] = 'Game has been updated.'
       redirect_to @game

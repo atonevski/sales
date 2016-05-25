@@ -15,8 +15,14 @@ class GamePolicy < ApplicationPolicy
   end
 
   def show?
-    # if admin then everything allowed, else check logged in and have at least viewer permissions
-    # for the Game model
+    # if admin then everything allowed, else check logged in and have
+    # at least viewer permissions for the Game model
     user.try(:admin?) or (user and Role.exists?(user_id: user.id, model: 'Game'))
   end
+
+  def update?
+    user.try(:admin?) or
+    (user and Role.exists? user_id: user.id, model: Game, role: [:editor, :manager])
+  end
+
 end

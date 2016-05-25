@@ -5,7 +5,7 @@ RSpec.feature 'Users can edit existing games' do
   let(:user) { FactoryGirl.create :user }
 
   before do
-    assign_role! user, :viewer, game.class.name.singularize.camelize
+    assign_role! user, :editor, game.class.name.singularize.camelize
     login_as user
 
     visit '/'

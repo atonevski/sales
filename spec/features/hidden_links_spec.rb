@@ -7,9 +7,9 @@ RSpec.feature 'Users can only see the appropriate links' do
   let(:game)  { FactoryGirl.create :game }
 
   before do
-    assign_role! user, :viewer, game.class.name.singularize.camelize
+    # assign_role! user, :viewer, game.class.name.singularize.camelize
 
-    login_as user
+    # login_as user
   end
 
   context 'anonymous users' do
@@ -37,6 +37,7 @@ RSpec.feature 'Users can only see the appropriate links' do
 
   context 'regular users' do
     before do
+      assign_role! user, :viewer, game.class.name.singularize.camelize
       login_as(user)
     end
 
@@ -58,6 +59,16 @@ RSpec.feature 'Users can only see the appropriate links' do
     scenario 'cannot see the Delete Agent link' do
       visit agent_path(agent)
       expect(page).not_to have_link 'Delete Agent'
+    end
+  end
+
+  context 'users as editors for games' do
+    scenario 'can see Edit Game' do
+      assign_role! user, :editor, 'Game'
+      login_as user
+
+      visit game_path(game)
+      expect(page).to have_link 'Edit Game'
     end
   end
 

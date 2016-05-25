@@ -56,6 +56,38 @@ RSpec.describe GamePolicy do
     end
   end
 
+  permissions :update? do
+    
+    let(:user) { FactoryGirl.create :user }
+    let(:game) { FactoryGirl.create :game }
+
+    it 'blocks anonymous users' do
+      expect(subject).not_to permit(nil, game)
+    end
+
+    it "doesn't allow viewers of the games" do
+      assign_role! user, :viewer, game.class.name.singularize.camelize
+      
+      expect(subject).not_to permit(user, game)
+    end
+    
+    it 'allows editors of the games' do
+      assign_role! user, :editor, game.class.name.singularize.camelize
+      expect(subject).to permit(user, game)
+    end
+
+    it 'allows managers of the games' do
+      assign_role! user, :manager, game.class.name.singularize.camelize
+      expect(subject).to permit(user, game)
+    end
+
+    it 'allows administrators' do
+      admin = FactoryGirl.create :user, :admin
+
+      expect(subject).to permit(admin, game)
+    end
+  end
+
 #   permissions ".scope" do
 #     pending "add some examples to (or delete) #{__FILE__}"
 #   end
