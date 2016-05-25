@@ -6,6 +6,7 @@ class GamesController < ApplicationController
   end
 
   def show
+    authorize @game, :show?
   end
 
   def edit

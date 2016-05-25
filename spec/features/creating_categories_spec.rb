@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.feature 'Users can create new categories' do
   before do
+    user = FactoryGirl.create :user
     game = FactoryGirl.create(:game, name: 'Instant Game')
+    assign_role! user, :viewer, game.class.name.singularize.camelize
+    login_as user
 
     visit game_path(game)
     click_link 'New Category'

@@ -6,6 +6,12 @@ RSpec.feature 'Users can only see the appropriate links' do
   let(:agent) { FactoryGirl.create :agent }
   let(:game)  { FactoryGirl.create :game }
 
+  before do
+    assign_role! user, :viewer, game.class.name.singularize.camelize
+
+    login_as user
+  end
+
   context 'anonymous users' do
     scenario 'cannot see the New Game link' do
       visit '/'

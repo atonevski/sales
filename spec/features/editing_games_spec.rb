@@ -1,8 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature 'Users can edit existing games' do
+  let(:game) { FactoryGirl.create :game, name: 'Ново Лото 7/34' }
+  let(:user) { FactoryGirl.create :user }
+
   before do
-    FactoryGirl.create :game, name: 'Ново Лото 7/34'
+    assign_role! user, :viewer, game.class.name.singularize.camelize
+    login_as user
 
     visit '/'
     click_link 'Ново Лото 7/34'

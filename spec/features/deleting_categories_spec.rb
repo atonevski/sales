@@ -5,6 +5,10 @@ RSpec.feature 'Useres can delete categories' do
   let(:category) { FactoryGirl.create :category, game_id: game.id }
 
   before do
+    user = FactoryGirl.create :user
+    assign_role! user, :viewer, game.class.name.singularize.camelize
+    login_as user
+
     visit game_category_path game, category
   end
 

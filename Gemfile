@@ -19,6 +19,9 @@ gem 'font-awesome-rails'
 # Devise
 gem 'devise'
 
+# Pundit
+gem 'pundit'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
