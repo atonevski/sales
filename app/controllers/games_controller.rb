@@ -2,7 +2,10 @@ class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update]
 
   def index
-    @games = Game.all
+    # before implementing pundit
+    # @games = Game.all
+
+    @games = policy_scope Game
   end
 
   def show

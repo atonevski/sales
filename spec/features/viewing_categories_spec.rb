@@ -23,4 +23,5 @@ RSpec.feature 'Users can view categories' do
 
     # don't know how to jump to game/:game_id/category/:id 
   end
+
 end

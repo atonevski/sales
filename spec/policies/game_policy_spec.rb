@@ -34,6 +34,27 @@ RSpec.describe GamePolicy do
     end
   end
 
+  context 'policy_cope' do
+    subject { Pundit.policy_scope user, Game }
+
+    let!(:game) { FactoryGirl.create :game }
+    let(:user) { FactoryGirl.create :user }
+    let(:admin) { FactoryGirl.create :user, :admin }
+
+    it 'is empty for anonymous users' do
+      expect(Pundit.policy_scope(nil, Game)).to be_empty
+    end
+    
+    it 'returns all games for users with permissions' do
+      assign_role! user, :viewer, 'Game'
+      expect(subject).to include(game)
+    end
+
+    it 'returns all games for admins' do
+      assign_role! user, :viewer, 'Game'
+      expect(Pundit.policy_scope(admin, Game)).to include(game)
+    end
+  end
 
 #   permissions ".scope" do
 #     pending "add some examples to (or delete) #{__FILE__}"
