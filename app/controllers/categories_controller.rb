@@ -2,6 +2,10 @@ class CategoriesController < ApplicationController
   before_action :set_game
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
+  def show
+    authorize @category, :show?
+  end
+
   def new
     @category = @game.categories.build
   end
@@ -16,9 +20,6 @@ class CategoriesController < ApplicationController
       flash.now[:alert] = 'Category has not been created.'
       render 'new'
     end
-  end
-
-  def show
   end
 
   def edit

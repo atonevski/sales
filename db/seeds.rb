@@ -7,7 +7,27 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-# Users: create me as admin
+# Users: create me as admin, viewer, editor and manager
 unless User.exists? email: 'atonevski@gmail.com'
   User.create! email: 'atonevski@gmail.com', password: 'salesok', admin: true
+end
+unless User.exists? email: 'viewer@example.com'
+  User.create! email: 'viewer@example.com', password: 'viewerok'
+end
+unless User.exists? email: 'editor@example.com'
+  User.create! email: 'editor@example.com', password: 'editorok'
+end
+unless User.exists? email: 'manager@example.com'
+  User.create! email: 'manager@example.com', password: 'managerok'
+end
+
+# basic roles for default users
+unless Role.exists? user_id: 2, role: :viewer
+  Role.create! user_id: 2, role: :viewer, model: 'Game'
+end
+unless Role.exists? user_id: 3, role: :editor
+  Role.create! user_id: 3, role: :editor, model: 'Game'
+end
+unless Role.exists? user_id: 4, role: :manager
+  Role.create! user_id: 4, role: :manager, model: 'Game'
 end
