@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
   end
   def todo
     # my todo list/log 
-    @available_sales = get_available_sales
+    # @available_sales = get_available_sales
   end
 
 private

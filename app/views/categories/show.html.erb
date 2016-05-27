@@ -1,8 +1,10 @@
 <header class='page-headder'>
   <div class='btn-toolbar pull-right'>
     <div class='btn-group'>
-      <%= link_to 'Edit Category', [ :edit, @game, @category ],
-          class: 'at-edit' %>
+      <% if policy(@game).update? %>
+        <%= link_to 'Edit Category', [ :edit, @game, @category ],
+            class: 'at-edit' %>
+      <% end %>
     </div>
     <div class='btn-group'>
       <%= link_to 'Delete Category', [ @game, @category ], method: :delete, class: 'at-delete',

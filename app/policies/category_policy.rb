@@ -4,4 +4,8 @@ class CategoryPolicy < ApplicationPolicy
       scope
     end
   end
+
+  def show?
+    user.try(:admin?) or (user and Role.exists? user_id: user.id, model: 'Game')
+  end
 end

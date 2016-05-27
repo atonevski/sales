@@ -3,8 +3,12 @@ require 'rails_helper'
 RSpec.feature 'Users can edit existing categories' do
   let(:game) { FactoryGirl.create :game }
   let(:category) { FactoryGirl.create :category, game_id: game.id }
+  let(:user) { FactoryGirl.create :user }
 
   before do
+    assign_role! user, :editor, game.class.name.singularize.camelize
+    login_as user
+
     visit game_category_path game, category
     click_link 'Edit Category'
   end

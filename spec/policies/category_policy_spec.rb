@@ -1,28 +1,71 @@
 require 'rails_helper'
 
 RSpec.describe CategoryPolicy do
+  context 'permissions' do
+    subject { CategoryPolicy.new user, category }
 
-  let(:user) { User.new }
+    let(:user) { FactoryGirl.create :user }
+    let(:game) { FactoryGirl.create :game }
+    let(:category) { FactoryGirl.create :category, game_id: game.id }
 
-  subject { described_class }
+    context 'for anonymous users' do
+      let(:user) { nil }
 
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
+      it { should_not permit_action :show }
+    end
+
+    context 'for viewers of game' do
+      before do
+        assign_role! user, :viewer, game.class.name.singularize.camelize
+      end
+
+      it { should permit_action :show }
+    end
+
+    context 'for editors of game' do
+      before do
+        assign_role! user, :editor, game.class.name.singularize.camelize
+      end
+
+      it { should permit_action :show }
+    end
+
+    context 'for managers of game' do
+      before do
+        assign_role! user, :manager, game.class.name.singularize.camelize
+      end
+
+      it { should permit_action :show }
+    end
+
+    context 'for admins' do
+      let(:user) { FactoryGirl.create :user, :admin }
+      
+      it { should permit_action :show }
+    end
   end
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+#   let(:user) { User.new }
+# 
+#   subject { described_class }
+# 
+#   permissions ".scope" do
+#     pending "add some examples to (or delete) #{__FILE__}"
+#   end
+# 
+#   permissions :show? do
+#     pending "add some examples to (or delete) #{__FILE__}"
+#   end
+# 
+#   permissions :create? do
+#     pending "add some examples to (or delete) #{__FILE__}"
+#   end
+# 
+#   permissions :update? do
+#     pending "add some examples to (or delete) #{__FILE__}"
+#   end
+# 
+#   permissions :destroy? do
+#     pending "add some examples to (or delete) #{__FILE__}"
+#   end
 end
