@@ -12,6 +12,24 @@ class GamesController < ApplicationController
     authorize @game, :show?
   end
 
+  def new
+    @game = Game.new
+    authorize @game, :create?
+  end
+
+  def create
+    @game = Game.new game_params
+    authorize @game, :create?
+
+    if @game.save
+      flash[:notice] = 'Game has been created.'
+      redirect_to @game
+    else
+      flash.now[:alert] = 'Game has not been created.'
+      render 'new'
+    end
+  end
+
   def edit
     authorize @game, :update?
   end

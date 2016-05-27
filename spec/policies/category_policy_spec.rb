@@ -12,6 +12,8 @@ RSpec.describe CategoryPolicy do
       let(:user) { nil }
 
       it { should_not permit_action :show }
+      it { should_not permit_action :edit }
+      it { should_not permit_action :create }
     end
 
     context 'for viewers of game' do
@@ -19,7 +21,9 @@ RSpec.describe CategoryPolicy do
         assign_role! user, :viewer, game.class.name.singularize.camelize
       end
 
-      it { should permit_action :show }
+      it { should     permit_action :show }
+      it { should_not permit_action :edit }
+      it { should_not permit_action :create }
     end
 
     context 'for editors of game' do
@@ -27,7 +31,9 @@ RSpec.describe CategoryPolicy do
         assign_role! user, :editor, game.class.name.singularize.camelize
       end
 
-      it { should permit_action :show }
+      it { should     permit_action :show }
+      it { should     permit_action :edit }
+      it { should_not permit_action :create }
     end
 
     context 'for managers of game' do
@@ -36,12 +42,16 @@ RSpec.describe CategoryPolicy do
       end
 
       it { should permit_action :show }
+      it { should permit_action :edit }
+      it { should permit_action :create }
     end
 
     context 'for admins' do
       let(:user) { FactoryGirl.create :user, :admin }
       
       it { should permit_action :show }
+      it { should permit_action :edit }
+      it { should permit_action :create }
     end
   end
 

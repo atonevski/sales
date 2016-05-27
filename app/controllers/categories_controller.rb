@@ -8,10 +8,12 @@ class CategoriesController < ApplicationController
 
   def new
     @category = @game.categories.build
+    authorize @category, :create?
   end
 
   def create
     @category = @game.categories.build category_params
+    authorize @category, :create?
 
     if @category.save
       flash[:notice] = 'Category has been created.'
@@ -23,9 +25,12 @@ class CategoriesController < ApplicationController
   end
 
   def edit
+    authorize @category, :update?
   end
   
   def update
+    authorize @category, :update?
+
     if @category.update category_params
       flash[:notice] = 'Category has been updated.'
       redirect_to [ @game, @category ]

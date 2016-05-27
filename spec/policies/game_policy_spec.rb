@@ -12,6 +12,7 @@ RSpec.describe GamePolicy do
       
       it { should_not permit_action :show }
       it { should_not permit_action :update }
+      it { should_not permit_action :create }
     end
 
     context 'for viewers of the game' do
@@ -21,6 +22,7 @@ RSpec.describe GamePolicy do
 
       it { should     permit_action :show }
       it { should_not permit_action :update }
+      it { should_not permit_action :create }
     end
 
     context 'for editors of the game' do
@@ -28,8 +30,9 @@ RSpec.describe GamePolicy do
         assign_role! user, :editor, game.class.name.singularize.camelize
       end
 
-      it { should permit_action :show }
-      it { should permit_action :update }
+      it { should     permit_action :show }
+      it { should     permit_action :update }
+      it { should_not permit_action :create }
     end
 
     context 'for managers of the game' do 
@@ -39,6 +42,7 @@ RSpec.describe GamePolicy do
 
       it { should permit_action :show }
       it { should permit_action :update }
+      it { should permit_action :create }
     end
 
     context 'for administrators' do
@@ -46,6 +50,7 @@ RSpec.describe GamePolicy do
 
       it { should permit_action :show }
       it { should permit_action :update }
+      it { should permit_action :create }
     end
   end
 
