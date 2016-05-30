@@ -1,7 +1,7 @@
 <header class='page-header'>
   <div class='btn-toolbar pull-right'>
     <div class='btn-group'>
-      <% admins_only do %>
+      <% if policy(Game).create? %> <!-- it was admins_only do -->
         <%= link_to 'New Game', new_admin_game_path, class: 'at-new' %>
       <% end %>
     </div>

@@ -20,6 +20,7 @@ end
 unless User.exists? email: 'manager@example.com'
   User.create! email: 'manager@example.com', password: 'managerok'
 end
+puts 'Inserted some users'
 
 # basic roles for default users
 unless Role.exists? user_id: 2, role: :viewer
@@ -31,3 +32,10 @@ end
 unless Role.exists? user_id: 4, role: :manager
   Role.create! user_id: 4, role: :manager, model: 'Game'
 end
+puts 'Created some roles for the users'
+
+puts 'Inserting agent and terminals'
+Rake::Task['db:init_agents'].invoke
+
+puts 'Inserting games and categories'
+Rake::Task['db:init_games'].invoke
