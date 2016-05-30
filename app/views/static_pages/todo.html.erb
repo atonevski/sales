@@ -1,9 +1,7 @@
 <h3>TODO</h3>
 <ul>
-  <li><strong class='text-danger'>Note:</strong> revise edit/delete games (hidden) links; at the moment 2016-05-25 only <em>viewer</em> role is partially implemented for <strong>games</strong></li>
-  <li>Instead of db:init_games/db:init_agents task, move them in db/seeds.rb</li>
-  <li>Use conventional actions order in controllers: index, show, new, create, edit,
-      update, destroy</li>
+  <li>put roles under the admin name space; add roles in the right panel menu</li>
+  <li>repeat authorization process the same way as for games/categories</li>
   <li>In future consider using <a href='leafletjs.com'>leaflet.js</a> alternative and rails gem
       <a href='https://github.com/axyjo/leaflet-rails'>leaflet-rails</a></li>
   <li>Consider defining funds and winning funds, and use of categories model</li>
@@ -11,37 +9,11 @@
   <li>Use this <a href='https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#traits'>link</a> for <mark>FactoryGirl</mark></li>
   <li>Use this <a href='http://www.sitepoint.com/using-coffeescript-in-rails/'>link</a> for <code>coffeescript</code></li>
   <li>Follow this <a href='http://bootstrap-sass.happyfuncorp.com/bootstrap-sass/appearance/README.html'>link</a> to customize <mark>Bootstrap</mark></li>
-  <li>Use the following code to list available daily sales data:<br /><br /><pre>XML_PATH = "http://10.211.102.100:8080/DANCE/4WEB/"
-def get_available_sales
-  uri = URI.parse(XML_PATH)
-  res = Net::HTTP.get_response(uri)
-  unless res.code == '200'
-    puts "ERROR reading #{ uri.path }"
-    puts "Got: #{res.code} code, exiting"
-    exit 1
-  end
-  doc = Nokogiri::HTML res.body.force_encoding('utf-8')
-
-  a = [ ]
-  doc.xpath('//table/tr').each do |tr|
-    tt = tr.xpath('.//td//tt')
-    next unless tt.length == 3
-    next unless tt[0].text =~ /^(\d{4}-\d\d-\d\d)/
-    date = Regexp.last_match[1]
-    a &lt;&lt; {
-      date: date,
-      size: tt[1].text,
-      time: tt[2].text
-    }
-  end
-
-  a
-end
-  </pre></li>
 </ul>
 <h3>Done</h3>
 
 <ul>
+  <li>2016-05-27 moved the db:init_games and db:init_agents rake task into <strong>db/seeds.rb</strong></li>
   <li>2016-05-26 added small routine to get available sales from server; the code is inserted into <strong>static_pages/todo</strong> controller/viewer</li>
   <li>2016-05-25 for the <strong>games</strong> controller completed <em>viewer</em> and <em>editor</em> roles</li>
   <li>2016-05-25 started implementing athorization using three roles (<em>viewer, editor, manager</em>) for <strong>games</strong></li>

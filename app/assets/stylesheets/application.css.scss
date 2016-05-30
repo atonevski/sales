@@ -68,7 +68,8 @@ a.at-archive {
 
 /* nav icons */
 a.at-nav-signup, a.at-nav-signin, a.at-nav-signout, a.at-nav-home,
-a.at-nav-agents, a.at-nav-todo, a.at-nav-admin, a.at-nav-users {
+a.at-nav-agents, a.at-nav-todo, a.at-nav-admin, a.at-nav-users,
+a.at-nav-links {
   &:before {
     font-family: 'FontAwesome';
     padding-right: 0.35em;
@@ -83,6 +84,7 @@ a.at-nav-agents   { &:before { @extend .fa-object-group; } }
 a.at-nav-todo     { &:before { @extend .fa-pencil-square-o; } }
 a.at-nav-admin    { &:before { @extend .fa-user-secret; } }
 a.at-nav-users    { &:before { @extend .fa-users; } }
+a.at-nav-links    { &:before { @extend .fa-link; } }
 
 /* flash messages styling */
 .alert-notice { @extend .alert-success; }
