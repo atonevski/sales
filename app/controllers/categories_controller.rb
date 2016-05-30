@@ -41,6 +41,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
+    authorize @category, :destroy?
     @category.destroy
     
     flash[:notice] = 'Category has been deleted.'

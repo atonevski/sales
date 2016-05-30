@@ -5,6 +5,7 @@ RSpec.feature 'Users can only see the appropriate links' do
   let(:admin) { FactoryGirl.create :user, :admin }
   let(:agent) { FactoryGirl.create :agent }
   let(:game)  { FactoryGirl.create :game }
+  let(:category)  { FactoryGirl.create :category, game_id: game.id }
 
   before do
     # assign_role! user, :viewer, game.class.name.singularize.camelize
@@ -21,6 +22,21 @@ RSpec.feature 'Users can only see the appropriate links' do
     scenario 'cannot see Delete Game link' do
       visit game_path(game)
       expect(page).not_to have_link 'Delete Game'
+    end
+    
+    scenario 'cannot see New Category link' do
+      visit game_path(game)
+      expect(page).not_to have_link 'New Category'
+    end
+
+    scenario 'cannot see Edit Category link' do
+      visit game_category_path(game, category)
+      expect(page).not_to have_link 'Edit Category'
+    end
+
+    scenario 'cannot see Delete Category link' do
+      visit game_category_path(game, category)
+      expect(page).not_to have_link 'Delete Category'
     end
 
     scenario 'cannot see the New Agent link' do
@@ -56,6 +72,15 @@ RSpec.feature 'Users can only see the appropriate links' do
       expect(page).not_to have_link 'Delete Game'
     end
 
+    scenario 'cannot see Edit Category link' do
+      visit game_category_path(game, category)
+      expect(page).not_to have_link 'Edit Category'
+    end
+
+    scenario 'cannot see Delete Category link' do
+      visit game_category_path(game, category)
+      expect(page).not_to have_link 'Delete Category'
+    end
     scenario 'cannot see the New Agent link' do
       visit '/agents'
       expect(page).not_to have_link 'New Agent'
@@ -68,9 +93,12 @@ RSpec.feature 'Users can only see the appropriate links' do
   end
 
   context 'users as editors for games' do
-    scenario 'can see Edit Game' do
+    before do
       assign_role! user, :editor, 'Game'
       login_as user
+    end
+
+    scenario 'can see Edit Game' do
 
       visit game_path(game)
       expect(page).to have_link 'Edit Game'
@@ -78,21 +106,43 @@ RSpec.feature 'Users can only see the appropriate links' do
 
     scenario 'can see Edit Category' do
       category = FactoryGirl.create :category, game_id: game.id
-      assign_role! user, :editor, 'Game'
-      login_as user
 
       visit game_category_path(game, category)
       expect(page).to have_link 'Edit Category'
     end
+
+    scenario "can't see Delete Category" do
+      category = FactoryGirl.create :category, game_id: game.id
+
+      visit game_category_path(game, category)
+      expect(page).not_to have_link 'Delete Category'
+    end
   end
 
   context 'users as managers for games' do
-    scenario 'can see New Game' do
+    before do
       assign_role! user, :manager, 'Game'
       login_as user
+    end
+
+    scenario 'can see New Game' do
 
       visit root_path
       expect(page).to have_link 'New Game'
+    end
+
+    scenario 'can see Edit Category' do
+      category = FactoryGirl.create :category, game_id: game.id
+
+      visit game_category_path(game, category)
+      expect(page).to have_link 'Edit Category'
+    end
+
+    scenario "can see Delete Category" do
+      category = FactoryGirl.create :category, game_id: game.id
+
+      visit game_category_path(game, category)
+      expect(page).to have_link 'Delete Category'
     end
   end
 
@@ -119,6 +169,20 @@ RSpec.feature 'Users can only see the appropriate links' do
     scenario 'can see Delete Agent link' do
       visit agent_path(agent)
       expect(page).to have_link 'Delete Agent'
+    end
+
+    scenario 'can see Edit Category' do
+      category = FactoryGirl.create :category, game_id: game.id
+
+      visit game_category_path(game, category)
+      expect(page).to have_link 'Edit Category'
+    end
+
+    scenario "can see Delete Category" do
+      category = FactoryGirl.create :category, game_id: game.id
+
+      visit game_category_path(game, category)
+      expect(page).to have_link 'Delete Category'
     end
   end
 end

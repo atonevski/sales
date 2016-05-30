@@ -13,6 +13,7 @@ RSpec.describe GamePolicy do
       it { should_not permit_action :show }
       it { should_not permit_action :update }
       it { should_not permit_action :create }
+      it { should_not permit_action :destroy }
     end
 
     context 'for viewers of the game' do
@@ -23,6 +24,7 @@ RSpec.describe GamePolicy do
       it { should     permit_action :show }
       it { should_not permit_action :update }
       it { should_not permit_action :create }
+      it { should_not permit_action :destroy }
     end
 
     context 'for editors of the game' do
@@ -33,6 +35,7 @@ RSpec.describe GamePolicy do
       it { should     permit_action :show }
       it { should     permit_action :update }
       it { should_not permit_action :create }
+      it { should_not permit_action :destroy }
     end
 
     context 'for managers of the game' do 
@@ -43,6 +46,7 @@ RSpec.describe GamePolicy do
       it { should permit_action :show }
       it { should permit_action :update }
       it { should permit_action :create }
+      it { should permit_action :destroy }
     end
 
     context 'for administrators' do
@@ -51,6 +55,7 @@ RSpec.describe GamePolicy do
       it { should permit_action :show }
       it { should permit_action :update }
       it { should permit_action :create }
+      it { should permit_action :destroy }
     end
   end
 

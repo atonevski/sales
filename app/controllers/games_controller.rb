@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update]
+  before_action :set_game, only: [:show, :edit, :update, :destroy]
 
   def index
     # before implementing pundit
@@ -44,6 +44,15 @@ class GamesController < ApplicationController
       flash.now[:alert] = 'Game has not been updated.'
       render 'edit'
     end
+  end
+
+  def destroy
+    authorize @game, :destroy?
+
+    @game.destroy
+    
+    flash[:notice] = 'Game has been deleted.'
+    redirect_to games_path
   end
 
 private

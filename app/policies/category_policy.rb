@@ -18,4 +18,9 @@ class CategoryPolicy < ApplicationPolicy
     user.try(:admin?) or
     (user and Role.exists? user_id: user.id, model: Game, role: :manager)
   end
+
+  def destroy?
+    user.try(:admin?) or
+    (user and Role.exists? user_id: user.id, model: Game, role: :manager)
+  end
 end

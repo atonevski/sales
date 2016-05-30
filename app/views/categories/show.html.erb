@@ -1,14 +1,16 @@
 <header class='page-headder'>
   <div class='btn-toolbar pull-right'>
     <div class='btn-group'>
-      <% if policy(@game).update? %>
+      <% if policy(@category).update? %>
         <%= link_to 'Edit Category', [ :edit, @game, @category ],
             class: 'at-edit' %>
       <% end %>
     </div>
     <div class='btn-group'>
-      <%= link_to 'Delete Category', [ @game, @category ], method: :delete, class: 'at-delete',
-          data: { confirm: 'Are you sure you want to delete this category?' } %>
+      <% if policy(@category).destroy? %>
+        <%= link_to 'Delete Category', [ @game, @category ], method: :delete, class: 'at-delete',
+            data: { confirm: 'Are you sure you want to delete this category?' } %>
+      <% end %>
     </div>
   </div>
  <h2><%= @game.name %> <small>category <%= @category.category %></small></h2> 
