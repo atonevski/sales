@@ -2,7 +2,7 @@ class AgentsController < ApplicationController
   before_action :set_agent, only: [:show, :edit, :update]
 
   def index
-    @agents = Agent.all
+    @agents = policy_scope(Agent)
   end
 
   def show
@@ -10,9 +10,12 @@ class AgentsController < ApplicationController
   end
 
   def edit
+    authorize @agent, :update?
   end
 
   def update
+    authorize @agent, :update?
+
     if @agent.update agent_params
       flash[:notice] = 'Agent has been updated.'
       redirect_to @agent

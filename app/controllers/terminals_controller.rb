@@ -2,12 +2,18 @@ class TerminalsController < ApplicationController
   before_action :set_agent
   before_action :set_terminal, only: [:show, :edit, :update, :destroy]
 
+  def show
+    authorize @terminal, :show?
+  end
+
   def new
     @terminal = @agent.terminals.build
+    authorize @terminal, :create?
   end
   
   def create
     @terminal = @agent.terminals.build terminal_params
+    authorize @terminal, :create?
 
     if @terminal.save
       flash[:notice] = 'Terminal has been created.'
@@ -19,12 +25,12 @@ class TerminalsController < ApplicationController
   end
 
   def edit
-  end
-
-  def show
+    authorize @terminal, :update?
   end
 
   def update
+    authorize @terminal, :update?
+
     if @terminal.update terminal_params
       flash[:notice] = 'Terminal has been updated.'
       redirect_to [ @agent, @terminal ]
@@ -35,6 +41,8 @@ class TerminalsController < ApplicationController
   end
 
   def destroy
+    authorize @terminal, :destroy?
+
     @terminal.destroy
     
     flash[:notice] = 'Terminal has been deleted.'

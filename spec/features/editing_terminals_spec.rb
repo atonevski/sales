@@ -3,8 +3,12 @@ require 'rails_helper'
 RSpec.feature 'Users can edit terminals' do
   let(:agent) { FactoryGirl.create :agent }
   let(:terminal) { FactoryGirl.create :terminal, agent_id: agent.id }
+  let(:user) { FactoryGirl.create :user }
 
   before do
+    assign_role! user, :editor, agent.class.name.singularize.camelize
+    login_as user
+
     visit agent_terminal_path agent, terminal
     click_link 'Edit Terminal'
   end

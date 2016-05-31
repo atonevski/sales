@@ -6,6 +6,7 @@ RSpec.feature 'Users can only see the appropriate links' do
   let(:agent) { FactoryGirl.create :agent }
   let(:game)  { FactoryGirl.create :game }
   let(:category)  { FactoryGirl.create :category, game_id: game.id }
+  let(:terminal)  { FactoryGirl.create :terminal, agent_id: agent.id }
 
   before do
     # assign_role! user, :viewer, game.class.name.singularize.camelize
@@ -54,6 +55,7 @@ RSpec.feature 'Users can only see the appropriate links' do
   context 'regular users' do
     before do
       assign_role! user, :viewer, game.class.name.singularize.camelize
+      assign_role! user, :viewer, agent.class.name.singularize.camelize
       login_as(user)
     end
 
@@ -81,6 +83,7 @@ RSpec.feature 'Users can only see the appropriate links' do
       visit game_category_path(game, category)
       expect(page).not_to have_link 'Delete Category'
     end
+
     scenario 'cannot see the New Agent link' do
       visit '/agents'
       expect(page).not_to have_link 'New Agent'
@@ -89,6 +92,16 @@ RSpec.feature 'Users can only see the appropriate links' do
     scenario 'cannot see the Delete Agent link' do
       visit agent_path(agent)
       expect(page).not_to have_link 'Delete Agent'
+    end
+
+    scenario 'cannot see Edit Terminal link' do
+      visit agent_terminal_path(agent, terminal)
+      expect(page).not_to have_link 'Edit Terminal'
+    end
+
+    scenario 'cannot see Delete Terminal link' do
+      visit agent_terminal_path(agent, terminal)
+      expect(page).not_to have_link 'Delete Terminal'
     end
   end
 
@@ -119,6 +132,33 @@ RSpec.feature 'Users can only see the appropriate links' do
     end
   end
 
+  context 'users as editors for agents' do
+    before do
+      assign_role! user, :editor, 'Agent'
+      login_as user
+    end
+
+    scenario 'can see Edit Game' do
+
+      visit agent_path(agent)
+      expect(page).to have_link 'Edit Agent'
+    end
+
+    scenario 'can see Edit Terminal' do
+      terminal = FactoryGirl.create :terminal, agent_id: agent.id
+
+      visit agent_terminal_path(agent, terminal)
+      expect(page).to have_link 'Edit Terminal'
+    end
+
+    scenario "can't see Delete Terminal" do
+      terminal = FactoryGirl.create :terminal, agent_id: agent.id
+
+      visit agent_terminal_path(agent, terminal)
+      expect(page).not_to have_link 'Delete Terminal'
+    end
+  end
+
   context 'users as managers for games' do
     before do
       assign_role! user, :manager, 'Game'
@@ -143,6 +183,32 @@ RSpec.feature 'Users can only see the appropriate links' do
 
       visit game_category_path(game, category)
       expect(page).to have_link 'Delete Category'
+    end
+  end
+
+  context 'users as managers for agents' do
+    before do
+      assign_role! user, :manager, 'Agent'
+      login_as user
+    end
+
+    scenario 'can see New Agent' do
+      visit agents_path
+      expect(page).to have_link 'New Agent'
+    end
+
+    scenario 'can see Edit Terminal' do
+      terminal = FactoryGirl.create :terminal, agent_id: agent.id
+
+      visit agent_terminal_path(agent, terminal)
+      expect(page).to have_link 'Edit Terminal'
+    end
+
+    scenario "can see Delete Terminal" do
+      terminal = FactoryGirl.create :terminal, agent_id: agent.id
+
+      visit agent_terminal_path(agent, terminal)
+      expect(page).to have_link 'Delete Terminal'
     end
   end
 

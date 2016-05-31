@@ -1,14 +1,18 @@
 <header class='page-header'>
   <div class='btn-toolbar pull-right'>
-    <div class='btn-group'>
-      <%= link_to 'Edit Terminal', [ :edit, @agent, @terminal ],
-          class: 'at-edit' %>
-    </div>
-    <div class='btn-group'>
-      <%= link_to 'Delete Terminal', [ @agent, @terminal ], method: :delete, 
-          class: 'at-delete',
-          data: { confirm: 'Are you sure you want to delete this terminal?' } %>
-    </div>
+    <% if policy(@terminal).update? %>
+      <div class='btn-group'>
+        <%= link_to 'Edit Terminal', [ :edit, @agent, @terminal ],
+            class: 'at-edit' %>
+      </div>
+    <% end %>
+    <% if policy(@terminal).destroy? %>
+      <div class='btn-group'>
+        <%= link_to 'Delete Terminal', [ @agent, @terminal ], method: :delete, 
+            class: 'at-delete',
+            data: { confirm: 'Are you sure you want to delete this terminal?' } %>
+      </div>
+    <% end %>
   </div>
  <h2><%= @agent.name %> <small>terminal <%= @terminal.name %></small></h2> 
 </header>

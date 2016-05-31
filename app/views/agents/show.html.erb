@@ -1,9 +1,11 @@
 <% title 'Agents', @agent.name %>
 <header class='page-header'>
   <div class='btn-toolbar pull-right'>
-    <div class='btn-group'>
-      <%= link_to 'Edit Agent', edit_agent_path(@agent), class: 'at-edit' %>
-    </div>
+    <% if policy(@agent).update? %>
+      <div class='btn-group'>
+        <%= link_to 'Edit Agent', edit_agent_path(@agent), class: 'at-edit' %>
+      </div>
+    <% end %>
     <div class='btn-group'>
       <% admins_only do %>
         <%= link_to 'Delete Agent', admin_agent_path(@agent), method: :delete, class: 'at-delete',
@@ -21,9 +23,11 @@
 </dl>
 <header class='page-header'>
   <div class='btn-toolbar pull-right'>
-    <div class='btn-group'>
-      <%= link_to 'New Terminal', new_agent_terminal_path(@agent), class: 'at-new' %>
-    </div>
+    <% if policy(@agent).create? %>
+      <div class='btn-group'>
+        <%= link_to 'New Terminal', new_agent_terminal_path(@agent), class: 'at-new' %>
+      </div>
+    <% end %>
   </div>
   <h3>Terninals</h3>
 </header>

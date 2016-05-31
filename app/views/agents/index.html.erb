@@ -1,7 +1,7 @@
 <header class='page-header'>
   <div class='btn-toolbar pull-right'>
     <div class='btn-group'>
-      <% admins_only do %>
+      <% if policy(Agent).create? %>
         <%= link_to 'New Agent', new_admin_agent_path, class: 'at-new' %>
       <% end %>
     </div>
