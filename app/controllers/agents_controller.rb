@@ -6,6 +6,7 @@ class AgentsController < ApplicationController
   end
 
   def show
+    authorize @agent, :show?
   end
 
   def edit

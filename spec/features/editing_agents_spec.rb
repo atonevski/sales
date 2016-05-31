@@ -1,8 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature 'Users can edit existing agents' do
+  let!(:agent) { FactoryGirl.create :agent, name: 'Agent no. 1' }
+  let(:user) { FactoryGirl.create :user }
+
   before do
-    FactoryGirl.create :agent, name: 'Agent no. 1'
+    assign_role! user, :editor, 'Agent'
+    login_as user
 
     visit '/'
     click_link 'Agents'

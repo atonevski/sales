@@ -25,12 +25,15 @@ puts 'Inserted some users'
 # basic roles for default users
 unless Role.exists? user_id: 2, role: :viewer
   Role.create! user_id: 2, role: :viewer, model: 'Game'
+  Role.create! user_id: 2, role: :viewer, model: 'Agent'
 end
 unless Role.exists? user_id: 3, role: :editor
   Role.create! user_id: 3, role: :editor, model: 'Game'
+  Role.create! user_id: 3, role: :editor, model: 'Agent'
 end
 unless Role.exists? user_id: 4, role: :manager
   Role.create! user_id: 4, role: :manager, model: 'Game'
+  Role.create! user_id: 4, role: :manager, model: 'Agent'
 end
 puts 'Created some roles for the users'
 

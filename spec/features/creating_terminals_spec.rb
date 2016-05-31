@@ -1,8 +1,11 @@
 require 'rails_helper'
 
-RSpec.feature 'Users can create new tickets' do
+RSpec.feature 'Users can create new terminals' do
   before do
+    user  = FactoryGirl.create :user
     agent = FactoryGirl.create :agent, name: 'Agent no. 1'
+    assign_role! user, :manager, 'Agent'
+    login_as user
     
     visit agent_path(agent)
     click_link 'New Terminal'
