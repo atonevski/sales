@@ -1,0 +1,28 @@
+<header class='page-header'>
+  <div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+      <%= link_to 'New Role', new_admin_role_path, class: 'at-new' %>
+    </div>
+  </div>
+  <h2>Roles</h2>
+</header>
+<div class='table-responsive'>
+  <table class='table table-striped table-condensed table-hover'>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Role</th>
+        <th>Model</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @roles.order(:user_id).each do |r| %>
+        <tr>
+          <td><%= link_to User.find(r.user_id).email , [ :admin, r ] %></td>
+          <td><%= r.role %></td>
+          <td><%= r.model %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,18 @@
+<header class='page-header'>
+  <div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+      <%= link_to 'Edit Role', [:edit, :admin, @role] , class: 'at-edit' %>
+    </div>
+    <div class='btn-group'>
+      <%= link_to 'Delete Role', [:admin, @role], method: :delete, class: 'at-delete',
+          data: { confirm: 'Are you sure you want to delete this role?' } %>
+    </div>
+  </div>
+  <h2>Role <small><%= User.find(@role.user_id).email %></small></h2>
+</header>
+
+<dl class='dl-horizontal'>
+  <% Role.column_names.each do |column| %>
+    <dt><%= column %></dt><dd id='<%= column %>'><%= @role[column] %></dd>
+  <% end %>
+</dl>
