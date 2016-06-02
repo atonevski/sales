@@ -7,6 +7,7 @@ class StaticPagesController < ApplicationController
   def todo
     # my todo list/log 
     # @available_sales = get_available_sales
+    @terminals_xml = File.read Rails.root + 'db/UmDlm.xml'
   end
 
 private
@@ -36,4 +37,26 @@ private
 
     a
   end
+  # def parse_terminals_xml(text)
+  #   doc = Nokogiri::HTML text
+  #  
+  #   h = { }
+  #   a = [ ]
+  #   h[:date] = doc.xpath('//um')[0].attr('d');
+  #   doc.xpath('//u').each do |r|
+  #     a << {
+  #       agent_id:     r.attr('aid'),
+  #       agent_name:   r.attr('an'),
+  #       id:           r.attr('uid'),
+  #       name:         r.attr('un'),
+  #       city:         r.attr('m'),
+  #       address:      r.attr('a'),
+  #       tel:          r.attr('t'),
+  #       status:       r.attr('s')
+  #     }
+  #   end
+
+  #   h[:terminals] = a
+  #   h
+  # end
 end
