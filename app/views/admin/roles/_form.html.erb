@@ -16,7 +16,7 @@
       <%= f.label :user_id, 'User', class: 'control-label col-md-3' %>
       <div class='col-md-9'>
         <%= f.select :user_id, User.all.map {|r| [r.email, r.id]}.to_a, {}, # required: "required", 
-            class: 'form-control',
+            class: 'form-control', disabled: upgrade_role_only,
             placeholder: 'Select from available users', title: 'Select from available users' %>
       </div>
     </div>
@@ -33,7 +33,7 @@
       <%= f.label :model, class: 'control-label col-md-3' %>
       <div class='col-md-9'>
         <%= f.select :model, Role::MODELS, {}, required: "required", 
-            class: 'form-control',
+            class: 'form-control', disabled: upgrade_role_only,
             placeholder: 'Select from available models', title: 'Select from available models' %>
       </div>
     </div>

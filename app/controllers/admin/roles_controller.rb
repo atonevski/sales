@@ -4,7 +4,7 @@ class Admin::RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
 
   def index
-    @roles = policy_scope Role
+    @roles = Role.all
   end
 
   def show
@@ -26,6 +26,22 @@ class Admin::RolesController < ApplicationController
     end
   end
 
+  def update
+    if @role.update role_params
+      flash[:notice] = 'Role has been updated.'
+      redirect_to admin_roles_path
+    else
+      flash.now[:alert] = 'Role has not been updated.'
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @role.destroy
+    
+    flash[:notice] = 'Role has been deleted.'
+    redirect_to admin_roles_path
+  end
 
 private
   def role_params

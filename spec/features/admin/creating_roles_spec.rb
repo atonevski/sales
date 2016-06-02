@@ -26,4 +26,17 @@ RSpec.feature 'Admins can create roles' do
       expect(page).not_to have_content 'Game'
     end
   end
+
+  scenario 'with invalid attributes' do
+    FactoryGirl.create :role, user_id: user.id, role: :viewer, model: 'Game'
+
+    select user.email, from: 'User'
+    select 'viewer', from: 'Role'
+    select 'Game', from: 'Model'
+    click_button 'Create Role'
+
+    expect(page).to have_content 'Role has not been created.'
+    expect(page).to have_content "role for user_id and model already exists"
+
+  end
 end

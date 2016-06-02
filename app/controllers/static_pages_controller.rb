@@ -1,4 +1,6 @@
 class StaticPagesController < ApplicationController
+  skip_after_action :verify_authorized, :verify_policy_scoped
+
   def about
     # empty for now
   end
