@@ -21,6 +21,9 @@ RSpec.feature 'Admins can create new users' do
     within 'table tr', text: 'newuser@example.com' do
       expect(page).not_to have_content('Admin')
     end
+
+    user = User.find_by_email 'newuser@example.com'
+    expect(Role.where(user_id: user.id).count).to eq 2
   end
 
   scenario 'when new user is an admin' do

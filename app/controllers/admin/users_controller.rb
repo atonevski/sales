@@ -16,6 +16,11 @@ class Admin::UsersController < Admin::ApplicationController
     @user = User.new user_params
 
     if @user.save
+      unless @user.admin? # add default roles in not an admin
+        Role.create user_id: @user.id, role: 'viewer', model: 'Game'
+        Role.create user_id: @user.id, role: 'viewer', model: 'Agent'
+      end
+
       flash[:notice] = 'User has been created.'
       redirect_to admin_users_path
     else
