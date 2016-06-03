@@ -69,8 +69,9 @@ Rails.application.routes.draw do
     resources :terminals
   end
 
-  get 'about' =>  'static_pages#about'
-  get 'todo'  =>  'static_pages#todo'
+  get 'about'         =>  'static_pages#about'
+  get 'todo'          =>  'static_pages#todo'
+  get 'xml-terminals' => 'static_pages#terminals'
 
   namespace :admin do
     root 'application#index'

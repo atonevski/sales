@@ -1,0 +1,48 @@
+<h2>System terminals</h2>
+<h3>Summary</h3>
+<dl class='dl-horizontal'>
+  <dt>Last update</dt>
+    <dd>
+      <span class="<%= Date.parse(@terminals[:date]) < Date.today ? 'text-danger' : 'text-success' %>"><%= @terminals[:date] %></span>
+    </dd>
+  <dt>Total agents</dt><dd><%= @terminals[:terminals].map {|t| t[:agent_id]}.uniq.length %></dd>
+  <dt>Total terminals</dt><dd><%= @terminals[:terminals].length %></dd>
+  <dt>Status 0 terminals</dt>
+    <dd><%= @terminals[:terminals].select {|t| t[:status] == '0'}.map {|t| t[:id]}.length %></dd>
+  <dt>Status -1 terminals</dt>
+    <dd><%= @terminals[:terminals].select {|t| t[:status] == '-1'}.map {|t| t[:id]}.length %></dd>
+  <dt>Status -100 terminals</dt>
+    <dd><%= @terminals[:terminals].select {|t| t[:status] == '-100'}.map {|t| t[:id]}.length %></dd>
+</dl>
+
+<div class='table-responsive'>
+  <table class='table table-striped table-condensed table-hover'>
+    <thead>
+      <tr>
+        <th style='text-align: center'>Id</th>
+        <th>Name</th>
+        <th>Agent Id</th>
+        <th>Agent Name</th>
+        <th>City</th>
+        <th>Address</th>
+        <th>Telephone</th>
+        <th>Status</th>
+        <!-- add more columns for new/edit/delete -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @terminals[:terminals].each do |t| %>
+        <tr>
+          <td align='center'><%= t[:id] %></td>
+          <td><%= t[:name] %></td>
+          <td><%= t[:agent_id] %></td>
+          <td><%= t[:agent_name] %></td>
+          <td><%= t[:city] %></td>
+          <td><%= t[:address] %></td>
+          <td><%= t[:tel] %></td>
+          <td><%= t[:status] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

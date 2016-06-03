@@ -1,6 +1,5 @@
 <h3>TODO</h3>
 <ul>
-  <li>When creating users automatically add roles for Game and Agent for viewing</li>
   <li>In future consider using <a href='leafletjs.com'>leaflet.js</a> alternative and rails gem
       <a href='https://github.com/axyjo/leaflet-rails'>leaflet-rails</a></li>
   <li>Consider defining funds and winning funds, and use of categories model</li>
@@ -12,6 +11,8 @@
 <h3>Done</h3>
 
 <ul>
+  <li>2016-06-03 added system terminals in static pages; xml terminals (yaml file) is updated only if obsolete</li>
+  <li>2016-06-02 by default view roles are assinged to each new non-admin user</li>
   <li>2016-06-02 completed Role CRUD</li>
   <li>2016-05-31 completed all permissions for <strong>Agent/Terminal</strong> models</li>
   <li>2016-05-31 added viewer, editor and manager permissions for <strong>Agents</strong> model</li>
@@ -42,4 +43,3 @@
   <li>2016-04-29 all anticipated validations for Game added</li>
   <li>2016-04-29 started this <strong>TODO</strong> list/log</li> 
 </ul>
-<p><%= parse_terminals_xml(@terminals_xml).inspect %></p>

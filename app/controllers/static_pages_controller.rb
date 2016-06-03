@@ -4,14 +4,37 @@ class StaticPagesController < ApplicationController
   def about
     # empty for now
   end
+
   def todo
     # my todo list/log 
     # @available_sales = get_available_sales
-    @terminals_xml = File.read Rails.root + 'db/UmDlm.xml'
+  end
+
+  def terminals
+    # first we must have a saved xml file into our local yaml file
+    # h = parse_terminals_xml File.read(Rails.root + 'db/UmDlm.xml')
+    # File.open(Rails.root + 'db/terminals.yml', 'w') { |f| f.write h.to_yaml }
+    
+    # read xml-terminals yaml file
+    h = YAML::load File.open(Rails.root + 'db/terminals.yml')
+
+    # if our yaml file is obsolete
+    xh = nil
+    if Date.parse(h[:date]) < Date.today
+      begin
+        text = get_terminals_xml
+        xh = parse_terminals_xml text
+        File.open(Rails.root + 'db/terminals.yml', 'w') { |f| f.write xh.to_yaml }
+      rescue
+      end
+    end
+
+    @terminals = xh ? xh : h
   end
 
 private
   XML_PATH = "http://10.211.102.100:8080/DANCE/4WEB/"
+
   def get_available_sales
     uri = URI.parse(XML_PATH)
     res = Net::HTTP.get_response(uri)
@@ -37,26 +60,36 @@ private
 
     a
   end
-  # def parse_terminals_xml(text)
-  #   doc = Nokogiri::HTML text
-  #  
-  #   h = { }
-  #   a = [ ]
-  #   h[:date] = doc.xpath('//um')[0].attr('d');
-  #   doc.xpath('//u').each do |r|
-  #     a << {
-  #       agent_id:     r.attr('aid'),
-  #       agent_name:   r.attr('an'),
-  #       id:           r.attr('uid'),
-  #       name:         r.attr('un'),
-  #       city:         r.attr('m'),
-  #       address:      r.attr('a'),
-  #       tel:          r.attr('t'),
-  #       status:       r.attr('s')
-  #     }
-  #   end
 
-  #   h[:terminals] = a
-  #   h
-  # end
+  def get_terminals_xml
+    uri = URI.parse(XML_PATH + 'UmDlm.xml')
+    res = Net::HTTP.get_response(uri)
+
+    return nil if res.code != '200'
+
+    res.body.force_encoding('utf-8')
+  end
+
+  def parse_terminals_xml(text)
+    doc = Nokogiri::HTML text
+   
+    h = { }
+    a = [ ]
+    h[:date] = doc.xpath('//um')[0].attr('d');
+    doc.xpath('//u').each do |r|
+      a << {
+        agent_id:     r.attr('aid'),
+        agent_name:   r.attr('an'),
+        id:           r.attr('uid'),
+        name:         r.attr('un'),
+        city:         r.attr('m'),
+        address:      r.attr('a'),
+        tel:          r.attr('t'),
+        status:       r.attr('s')
+      }
+    end
+
+    h[:terminals] = a
+    h
+  end
 end
