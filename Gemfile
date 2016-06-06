@@ -70,3 +70,6 @@ group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
 end
+
+# bulk insert into sales
+gem 'activerecord-import'

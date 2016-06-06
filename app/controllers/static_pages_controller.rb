@@ -26,7 +26,8 @@ class StaticPagesController < ApplicationController
         xh = parse_terminals_xml text
         File.open(Rails.root + 'db/terminals.yml', 'w') { |f| f.write xh.to_yaml }
       rescue  => e
-        Rails.logger.info "Got this exception for reading terminals xml file: " + "\033[31m#{ e }\033[0m"
+        Rails.logger.info "Got this exception for reading terminals xml file: " +
+          "\033[31m#{ e }\033[0m"
       end
     end
 

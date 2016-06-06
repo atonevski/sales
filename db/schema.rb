@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525074522) do
+ActiveRecord::Schema.define(version: 20160606094852) do
 
   create_table "agents", force: :cascade do |t|
     t.string   "name"
@@ -52,6 +52,21 @@ ActiveRecord::Schema.define(version: 20160525074522) do
   end
 
   add_index "roles", ["user_id"], name: "index_roles_on_user_id"
+
+  create_table "sales", force: :cascade do |t|
+    t.date     "date"
+    t.decimal  "sales",       precision: 12, scale: 2
+    t.decimal  "payout",      precision: 12, scale: 2
+    t.integer  "terminal_id"
+    t.integer  "agent_id"
+    t.integer  "game_id"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "sales", ["agent_id"], name: "index_sales_on_agent_id"
+  add_index "sales", ["game_id"], name: "index_sales_on_game_id"
+  add_index "sales", ["terminal_id"], name: "index_sales_on_terminal_id"
 
   create_table "terminals", force: :cascade do |t|
     t.string   "name"

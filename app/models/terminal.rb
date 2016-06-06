@@ -1,5 +1,6 @@
 class Terminal < ActiveRecord::Base
   belongs_to :agent
+  has_many :sales
   
   validates :id, 
     presence:     true,

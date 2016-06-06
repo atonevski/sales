@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
   has_many :categories, dependent: :delete_all
+  has_many :sales
 
   TYPES = %W{ INSTANT LOTTO NUMBER BINGO NEWSPAPER TOTO }
 
