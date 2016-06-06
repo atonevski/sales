@@ -25,7 +25,8 @@ class StaticPagesController < ApplicationController
         text = get_terminals_xml
         xh = parse_terminals_xml text
         File.open(Rails.root + 'db/terminals.yml', 'w') { |f| f.write xh.to_yaml }
-      rescue
+      rescue  => e
+        Rails.logger.info "Got this exception for reading terminals xml file: " + "\033[31m#{ e }\033[0m"
       end
     end
 
@@ -62,10 +63,18 @@ private
   end
 
   def get_terminals_xml
-    uri = URI.parse(XML_PATH + 'UmDlm.xml')
-    res = Net::HTTP.get_response(uri)
+    # uri = URI.parse(XML_PATH + 'UmDlm.xml')
+    # res = Net::HTTP.get_response(uri)
 
-    return nil if res.code != '200'
+    uri = URI.parse(XML_PATH + 'UmDlm.xml')
+    http = Net::HTTP.new uri.host, uri.port
+    http.open_timeout = 5
+    http.read_timeout = 5
+    req = Net::HTTP::Get.new uri.request_uri
+    res = http.request req
+
+    # return nil if res.code != '200'
+    raise "Got error: #{ res.code }" if res.code != '200'
 
     res.body.force_encoding('utf-8')
   end
