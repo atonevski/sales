@@ -19,4 +19,18 @@ RSpec.describe AgentsController, type: :controller do
     expect(response).to redirect_to(root_path)
     expect(flash[:alert]).to eq "You aren't allowed to do that."
   end
+
+  it 'respnds with JSON' do
+    # allow(controller).to receive(:current_user)
+    user = FactoryGirl.create :user
+    assign_role! user, :viewer, 'Agent'
+    allow(controller).to receive(:current_user).and_return(user)
+
+    FactoryGirl.create :agent, id: 1, name: 'Agent 1'
+    FactoryGirl.create :agent, id: 2, name: 'Agent 2'
+
+    get :index, format: :json
+    expect(JSON.parse response.body).to eq [ { 'id' => 1, 'name' => 'Agent 1' }, 
+      { 'id' => 2, 'name' => 'Agent 2' } ]
+  end
 end

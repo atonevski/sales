@@ -3,6 +3,10 @@ class AgentsController < ApplicationController
 
   def index
     @agents = policy_scope(Agent)
+    respond_to do |format|
+      format.html
+      format.json {  render json: @agents.to_a.map { |r| {id: r.id, name: r.name} } }
+    end
   end
 
   def show

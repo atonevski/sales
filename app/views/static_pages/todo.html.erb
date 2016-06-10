@@ -9,6 +9,12 @@
   <li>Follow this <a href='http://bootstrap-sass.happyfuncorp.com/bootstrap-sass/appearance/README.html'>link</a> to customize <mark>Bootstrap</mark></li>
   <li>Generat <strong>sales</strong> model
     <pre>rails generate model sales date:date sales:decimal{'12.2'} payout:decimal{'12.2'} terminal:references agent:references game:references</pre></li>
+    <ul><h4>Comissions</h4>
+      <li>Fist add <code>angularjs</code> in the assets pipline: fisrt add <code>gem angularjs-rails</code> in the Gemfile, and <code>//= require angular</code> in application.js manifest file</li>
+      <li>Then add the respond_to json in the index action of Agents controller so we can request via Ajax in the angular controller to read agents </li>
+      <li>Then copy the same code from our previous applications</li>
+      <li>create Commissions controller under which we'll select commissions for agents and period</li>
+    </ul>
 </ul>
 <h3>Done</h3>
 
