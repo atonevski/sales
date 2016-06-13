@@ -30,7 +30,8 @@ RSpec.describe AgentsController, type: :controller do
     FactoryGirl.create :agent, id: 2, name: 'Agent 2'
 
     get :index, format: :json
-    expect(JSON.parse response.body).to eq [ { 'id' => 1, 'name' => 'Agent 1' }, 
-      { 'id' => 2, 'name' => 'Agent 2' } ]
+    expect(JSON.parse response.body).to eq [ 
+      { 'id' => 1, 'name' => 'Agent 1', 'terminals' => [] }, 
+      { 'id' => 2, 'name' => 'Agent 2', 'terminals' => [] } ]
   end
 end

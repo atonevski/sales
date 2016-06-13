@@ -73,6 +73,8 @@ Rails.application.routes.draw do
   get 'todo'          =>  'static_pages#todo'
   get 'xml-terminals' => 'static_pages#terminals'
 
+  resources :commissions, only: [ :index, :show ]
+
   namespace :admin do
     root 'application#index'
     resources :games,  only: [ :new, :create, :destroy ]

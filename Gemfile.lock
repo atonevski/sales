@@ -39,6 +39,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    angularjs-rails (1.5.6)
     arel (6.0.3)
     autoprefixer-rails (6.3.6)
       execjs
@@ -200,6 +201,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import
+  angularjs-rails
   bootstrap-sass
   byebug
   capybara

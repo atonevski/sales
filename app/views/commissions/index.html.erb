@@ -1,0 +1,50 @@
+<div class='container' ng-app='commissions' ng-controller='Commissions' >
+  
+  <h1>Commission calculator</h1>
+  <div class='form-inline'>
+    <div class='input-group'>
+      <input type='text' placeholder='Name or Id'
+            class='form-control' data-placement='bottom'
+            title='Enter search string to reduce the agents list' id='filter-agents'
+            ng-model='search_string' at-autofocus />
+      <span class='input-group-addon'><span class='glyphicon glyphicon-search'></span></span>
+    </div>
+  </div>
+
+  <br />
+  <div class='row'>
+    <div class='table-responsive'>
+      <table class='table table-hover table-condensed table-striped'>
+        <thead>
+          <tr>
+            <th><i class="fa fa-caret-square-o-right"></i></th>
+            <th>id</th><th>name</th><th>city</th><th>tel.</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="agent in agents | orderBy: 'id' | filter: search_string">
+          <tr >
+            <td ng-click='toggle_agent(agent.id)'>
+              <i class="fa fa-caret-{{agent.show_terminals ? 'down' : 'right'}} text-primary"
+                    style='cursor: pointer;'>
+              </i>
+            </td>
+            <td>{{ agent.id }}</td>
+            <td colspan='2'>{{ agent.name }}</td>
+            <td align='center'>
+              <a href="#">
+                <i class="fa fa-calendar-o text-primary"></i>
+              </a>
+            </td>
+          </tr>
+          <!-- exact match on filter -->
+          <tr ng-repeat="terminal in agent.terminals" ng-show='agent.show_terminals'>
+            <td colspan='2' align='center'>{{ terminal.id }}</td>
+            <td>{{ terminal.name }}</td>
+            <td>{{ terminal.city }}</td>
+            <td>{{ terminal.tel }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

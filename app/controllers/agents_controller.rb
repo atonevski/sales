@@ -5,7 +5,18 @@ class AgentsController < ApplicationController
     @agents = policy_scope(Agent)
     respond_to do |format|
       format.html
-      format.json {  render json: @agents.to_a.map { |r| {id: r.id, name: r.name} } }
+      format.json do
+        arr = [ ]
+        @agents.each do |agn|
+          arr << {
+            id: agn.id,
+            name: agn.name,
+            terminals: agn.terminals.to_a
+          }
+        end
+        render json: arr
+        # {  render json: @agents.select([:id, :name]) }
+      end
     end
   end
 

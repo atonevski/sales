@@ -13,10 +13,6 @@
   <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?language=mk&key=AIzaSyBGihpM9rwb7FD5cOOcb3LYxQwaBvDvmPw&libraries=drawing' %>
   <%= csrf_meta_tags %>
   <!-- Gmaps -->
-  <!--
-  <script type='text/javascript'
-          src='https://maps.googleapis.com/maps/api/js?language=mk&key=AIzaSyBGihpM9rwb7FD5cOOcb3LYxQwaBvDvmPw&libraries=drawing'></script>
-  -->
 </head>
 <body>
   <div class='container'>
@@ -40,6 +36,9 @@
               <%= link_to 'Home', root_path, class: 'at-nav-home' %></li>
             <li class='<%= 'active' if current_page? '/agents' %>'>
               <%= link_to 'Agents', agents_path, class: 'at-nav-agents' %></li>
+            <li class='<%= 'active' if current_page? '/commissions' %>'>
+              <%= link_to 'Commissions', commissions_path, class: 'at-nav-commissions',
+                'data-no-turbolink' => true %></li>
             <li class='<%= 'active' if current_page? '/todo' %>'>
               <%= link_to 'Todo', todo_path, class: 'at-nav-todo' %></li>
             <% admins_only do %>

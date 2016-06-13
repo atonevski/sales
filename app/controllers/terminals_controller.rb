@@ -2,6 +2,13 @@ class TerminalsController < ApplicationController
   before_action :set_agent
   before_action :set_terminal, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @terminals = policy_scope(Terminal).where(agent_id: @agent.id)
+    respond_to do |format|
+      format.json {  render json: @terminals.select([:id, :name, :city, :tel]) }
+    end
+  end
+
   def show
     authorize @terminal, :show?
   end
