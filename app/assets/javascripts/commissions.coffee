@@ -21,13 +21,6 @@ angular.module('commissions').controller 'Commissions', ($scope, $http) ->
       $scope.agents = data
     .error (data, status) ->
       console.log "Error loading agents: #{ status }"
-
-#   # get terminals
-#   $http.get '/agents/7/terminals.json'
-#     .success (data, status) ->
-#       $scope.terminals = data
-#     .error (data, status) ->
-#       console.log "Error loading terminals: #{ status }"
   
   $scope.toggle_agent = (id) ->
     for agent in $scope.agents

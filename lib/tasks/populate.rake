@@ -92,4 +92,22 @@ namespace :db do
       Sale.import sa
     end
   end
+
+  desc 'Sales uptodate'
+  task :sales_uptodate, [:date] => [:environment] do |t, args|
+    yaml_file = "db/sales-#{ args[:date] }.yaml"
+    unless File.exists? yaml_file
+      puts "File #{ yaml_file } does not exists!"
+      next
+    end
+
+    a = YAML::load File.open(Rails.root + yaml_file)
+    puts "Last update: #{ Sale.maximum(:date).strftime '%Y-%m-%d' }"
+
+    sa = [ ]
+    a.each { |r| sa << Sale.new(r) }
+    Sale.import sa
+    puts "Done."
+  end
+
 end
