@@ -11,7 +11,8 @@
       </ul>
       <div class='row col-md-5'>
         <div class='form-horizontal'>
-          <%= form_tag do %>
+          <%= form_tag '/commissions', id: 'commission-form' do %>
+            <%= hidden_field_tag :agent_id, @agent.id  %>
             <div class='form-group'>
               <%= label_tag :from, nil, class: 'control-label col-md-6' %>
               <div class='col-md-6'>
@@ -25,7 +26,8 @@
               <%= label_tag :to, nil, class: 'control-label col-md-6' %>
               <div class='col-md-6'>
                 <%= select_tag :to, 
-                      options_from_collection_for_select(@months, :ym, :ym, @months.last.ym),
+                      options_from_collection_for_select(@months.last(1), :ym, :ym,
+                        @months.last.ym),
                       class: 'form-control',
                       placeholder: 'Select month'%>
               </div>

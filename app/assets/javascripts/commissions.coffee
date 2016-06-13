@@ -26,3 +26,15 @@ angular.module('commissions').controller 'Commissions', ($scope, $http) ->
     for agent in $scope.agents
       if agent.id is id
         agent.show_terminals = not agent.show_terminals
+
+$('#commission-form').ready ()->
+  console.log 'Commission form loaded'
+  $('#from').change ()->
+    sel = $(this).find(':selected').text()
+    console.log "Selected new from option: #{ sel }"
+
+    to = $('#to')
+    to.empty()
+    for o in $('#from option')
+      if o.value >= sel
+        to.append $('<option></option>').attr('value', o.value).text(o.value)
