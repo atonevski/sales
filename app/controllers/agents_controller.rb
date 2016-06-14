@@ -7,11 +7,13 @@ class AgentsController < ApplicationController
       format.html
       format.json do
         arr = [ ]
+        terminals = Terminal.all.to_a
         @agents.each do |agn|
           arr << {
             id: agn.id,
             name: agn.name,
-            terminals: agn.terminals.to_a
+            # terminals: agn.terminals.to_a
+            terminals: terminals.select {|r| r.agent_id == agn.id }
           }
         end
         render json: arr
