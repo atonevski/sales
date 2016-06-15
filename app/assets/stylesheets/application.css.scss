@@ -25,7 +25,7 @@ input[type=number].no-spinner::-webkit-outer-spin-button {
 }
 
 /* at-style buttons */
-a.at-new, a.at-edit, a.at-delete, a.at-archive {
+a.at-new, a.at-edit, a.at-delete, a.at-archive, a.at-pdf {
   @extend .btn;
 
   &:before {
@@ -66,6 +66,13 @@ a.at-archive {
   }
 }
 
+a.at-pdf {
+  @extend .btn-success;
+
+  &:before {
+    @extend .fa-file-pdf-o;
+  }
+}
 /* nav icons */
 a.at-nav-signup, a.at-nav-signin, a.at-nav-signout, a.at-nav-home,
 a.at-nav-agents, a.at-nav-todo, a.at-nav-admin, a.at-nav-users,

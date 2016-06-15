@@ -25,6 +25,9 @@ gem 'pundit'
 # AngularJS
 gem 'angularjs-rails'
 
+# prawn
+gem 'prawn-rails'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 

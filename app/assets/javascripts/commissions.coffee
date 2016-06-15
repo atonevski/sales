@@ -38,3 +38,13 @@ $('#commission-form').ready ()->
     for o in $('#from option')
       if o.value >= sel
         to.append $('<option></option>').attr('value', o.value).text(o.value)
+
+angular.module('commissions').controller 'Modal', ($scope) ->
+  # $scope.invoice_id = 'blah, blah, blah...'
+  $('#modal-dialog').on 'show.bs.modal shown.bs.modal', ()->
+    $('#invoice_id').focus()
+    console.log 'modal dialog shown!'
+
+  # default value
+  $scope.invoiced_correctly = 'yes'
+

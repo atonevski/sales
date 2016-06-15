@@ -17,6 +17,9 @@ class CommissionsController < ApplicationController
               .where(agent_id: 225).where('sales > 0.0').order('ym ASC')
   end
 
+  def new  
+  end
+
   def create
     @from     = params[:from]
     @to       = params[:to]
@@ -28,8 +31,11 @@ class CommissionsController < ApplicationController
                     .order(:terminal_id).to_a
                     .map {|r| r.terminal_id}
     @terminals = Terminal.find(terminal_ids)
-
-    render 'calc'
+   
+    respond_to do |fmt|
+      fmt.html { render 'calc' }
+      fmt.pdf  { render 'calc', layout: false }
+    end
   end
 
   def terminal_sales_for_period(terminal_id)
@@ -45,6 +51,7 @@ class CommissionsController < ApplicationController
         .where('substr(s.date, 1, 7) >= ?', @from)
         .where('substr(s.date, 1, 7) <= ?', @to)
         .group('g.id')
+        .having('game_sales > 0.0')
   end
   
   def format_period(lang = :en)

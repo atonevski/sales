@@ -66,4 +66,85 @@
       </tr>
     </tbody>
   </table>
+  <button type='button' class='btn btn-info pull-right' data-toggle='modal' 
+          data-target='#modal-dialog'><i class='fa fa-file-pdf-o'></i> Document</button>
+</div>
+
+<!-- modal dialog -->
+<div class='modal fade' id='modal-dialog' role='dialog' ng-app='commissions'
+      ng-controller='Modal' >
+  <div class='modal-dialog'>
+    <!-- modal content -->
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal'>&times;</button>
+        <h4 class='modal-title'>Generate document for invoice</h4>
+      </div>
+      <div class='modal-body'>
+        <!-- form -->
+        <%= form_tag "/commissions", name: 'form', class: 'form-horizontal' do %>
+          <%= hidden_field_tag :agent_id, @agent.id %>
+          <%= hidden_field_tag :id, @agent.id %>
+          <%= hidden_field_tag :format, 'pdf' %>
+          <%= hidden_field_tag :from, @from %>
+          <%= hidden_field_tag :to, @to %>
+          <div class='form-group'
+                ng-class="{ 'has-error': form.invoice_id.$invalid }" >
+            <%= label_tag :invoice_id, nil, class: 'control-label col-md-4' %>
+            <div class='col-md-8'>
+              <%= text_field_tag :invoice_id, nil, class: 'form-control', 
+                'ng-model' => 'invoice_id',
+                placeholder: 'Invoice id', required: true %>
+            </div>
+          </div>
+          <div class='form-group' ng-class="{ 'has-error': form.invoice_date.$dirty &&
+                    form.invoice_date.$invalid }">
+            <%= label_tag :invoice_date, nil, class: 'control-label col-md-4' %>
+            <div class='col-md-8'>
+              <%= text_field_tag :invoice_date, nil, class: 'form-control', 
+                placeholder: 'dd.mm.yyyy', required: true,
+                'ng-model' => 'invoice_date',
+                'ng-pattern' => '/^\d\d\.\d\d\.\d{4}$/' %>
+            </div>
+          </div>
+          <div class='form-group'>
+            <%= label_tag :invoice_sum, nil, class: 'control-label col-md-4' %>
+            <div class='col-md-8'>
+              <div class='radio'>
+                <label for='correct'>
+                  <%= radio_button_tag 'invoiced-correctly', 'yes', true,
+                      'ng-model' => 'invoiced_correctly', id: 'correct', checked: 'checked' %>
+                  Correct sum
+                </label>
+              </div>
+              <div class='radio'>
+                <label for='incorrect'>
+                  <%= radio_button_tag 'invoiced-correctly', 'no', false, 
+                      'ng-model' => 'invoiced_correctly', id: 'incorrect' %>
+                   Incorrect sum
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class='form-group'>
+            <div class='col-md-offset-4 col-md-8'>
+              <%= text_field_tag :invoice_sum, nil, class: 'form-control',
+                  'ng-disabled' => "invoiced_correctly == 'yes'" %>
+            </div>
+          </div>
+          <div class='form-group'>
+            <div class='col-md-offset-4 col-md-8'>
+              <%= button_tag class: 'btn btn-success',
+                  'ng-disabled' => "form.$invalid",
+                  'data-no-turbolink' => true do %>
+                  <i class='fa fa-file-pdf-o'></i> Generate
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div> <!-- modal body -->
+      <div class="modal-footer">
+      </div>
+    </div> <!-- modal content -->
+  </div> <!-- modal dialog -->
 </div>
