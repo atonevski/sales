@@ -7,7 +7,34 @@ class StaticPagesController < ApplicationController
 
   def todo
     # my todo list/log 
-    # @available_sales = get_available_sales
+    
+    ##
+    # use this code to list available sales
+    last_date = Sale.maximum(:date).strftime '%Y-%m-%d'
+    @available_sales = get_available_sales.select {|a| a[:date] > last_date}
+
+    ##
+    # insert this in todo.html.erb
+    # <div class='table-responsive'>
+    #   <table class='table table-striped table-condensed table-hover'>
+    #     <thead>
+    #       <tr>
+    #         <th>Date</th>
+    #         <th>Size</th>
+    #         <th>Time</th>
+    #       </tr>
+    #     </thead>
+    #     <tbody>
+    #       <% @available_sales.each do |s| %>
+    #         <tr>
+    #           <td><%= s[:date] %></td>
+    #           <td><%= s[:size] %></td>
+    #           <td><%= s[:time] %></td>
+    #         </tr>
+    #       <% end %>
+    #     </tbody>
+    #   </table>
+    # </div>
   end
 
   def terminals

@@ -7,7 +7,7 @@
   <li>Use this <a href='https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#traits'>link</a> for <mark>FactoryGirl</mark></li>
   <li>Use this <a href='http://www.sitepoint.com/using-coffeescript-in-rails/'>link</a> for <code>coffeescript</code></li>
   <li>Follow this <a href='http://bootstrap-sass.happyfuncorp.com/bootstrap-sass/appearance/README.html'>link</a> to customize <mark>Bootstrap</mark></li>
-  <li>Generat <strong>sales</strong> model
+  <li>Generate <strong>sales</strong> model
     <pre>rails generate model sales date:date sales:decimal{'12.2'} payout:decimal{'12.2'} terminal:references agent:references game:references</pre></li>
     <ul><h4>Comissions</h4>
       <li>Fist add <code>angularjs</code> in the assets pipline: fisrt add <code>gem angularjs-rails</code> in the Gemfile, and <code>//= require angular</code> in application.js manifest file</li>
@@ -15,10 +15,29 @@
       <li>Then copy the same code from our previous applications</li>
       <li>create Commissions controller under which we'll select commissions for agents and period</li>
     </ul>
+  <li>Importing <strong>sales</strong> from <mark>csv</mark>
+    <pre>
+sqlite&gt; .mode csv
+sqlite&gt; .import sales.2016-06-12.csv sales</pre>
+  </li>
+  <li>Exporting <strong>sales</strong> to <mark>csv</mark>
+    <pre>
+sqlite&gt; 
+sqlite&gt; .mode csv
+sqlite&gt; .output sales.2016-07-06.csv
+sqlite&gt; SELECT * FROM sales;
+sqlite&gt;</pre>
+    And always zip the csv file!
+  </li>
+  <li>For <mark>Prawn</mark> don't forget to copy <mark>Droid</mark> fonts into <code>"#{ Prawn::BASEDIR }/data/fonts/"</code></li>
 </ul>
 <h3>Done</h3>
 
 <ul>
+  <li>2016-06-15 Commission calculation (pdf), fixed modal dialog form</li>
+  <li>2016-06-14 Commission calculation (html)</li>
+  <li>2016-06-13 Added commission form <mark>jquery</mark> code</li>
+  <li>2016-06-13 Added commissions controller and <mark>angularjs</mark></li>
   <li>2016-06-10 added JSON format in the agent/terminals controller under index action needed for the comissions</li>
   <li>2016-06-06 created <mark>sale</mark> model and prepared <code>yaml</code> files for populating <strong>sales</strong> table</li>
   <li>2016-06-04 fixed open/read timeout for xml terminals</li>
@@ -54,3 +73,24 @@
   <li>2016-04-29 all anticipated validations for Game added</li>
   <li>2016-04-29 started this <strong>TODO</strong> list/log</li> 
 </ul>
+
+<div class='table-responsive'>
+  <table class='table table-striped table-condensed table-hover'>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Size</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @available_sales.each do |s| %>
+        <tr>
+          <td><%= s[:date] %></td>
+          <td><%= s[:size] %></td>
+          <td><%= s[:time] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
