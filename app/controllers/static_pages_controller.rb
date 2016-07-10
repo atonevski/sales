@@ -11,7 +11,13 @@ class StaticPagesController < ApplicationController
     ##
     # use this code to list available sales
     last_date = Sale.maximum(:date).strftime '%Y-%m-%d'
-    @available_sales = get_available_sales.select {|a| a[:date] > last_date}
+
+    begin
+      @available_sales = get_available_sales.select {|a| a[:date] > last_date}
+    rescue => e
+      Rails.logger.info "Got this exception while reading available sales files: " +
+        "\033[31m#{ e }\033[0m"
+    end
 
     ##
     # insert this in todo.html.erb
@@ -66,12 +72,17 @@ private
 
   def get_available_sales
     uri = URI.parse(XML_PATH)
+    http = Net::HTTP.new uri.host, uri.port
+    http.open_timeout = 3
+    http.read_timeout = 3
+    req = Net::HTTP::Get.new uri.request_uri
+    res = http.request req
+
+    raise "Got error: #{ res.code }" if res.code != '200'
+
+    uri = URI.parse(XML_PATH)
     res = Net::HTTP.get_response(uri)
-    unless res.code == '200'
-      puts "ERROR reading #{ uri.path }"
-      puts "Got: #{res.code} code, exiting"
-      exit 1
-    end
+
     doc = Nokogiri::HTML res.body.force_encoding('utf-8')
 
     a = [ ]
@@ -91,9 +102,6 @@ private
   end
 
   def get_terminals_xml
-    # uri = URI.parse(XML_PATH + 'UmDlm.xml')
-    # res = Net::HTTP.get_response(uri)
-
     uri = URI.parse(XML_PATH + 'UmDlm.xml')
     http = Net::HTTP.new uri.host, uri.port
     http.open_timeout = 5

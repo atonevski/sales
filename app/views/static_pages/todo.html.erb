@@ -73,24 +73,25 @@ sqlite&gt;</pre>
   <li>2016-04-29 all anticipated validations for Game added</li>
   <li>2016-04-29 started this <strong>TODO</strong> list/log</li> 
 </ul>
-
-<div class='table-responsive'>
-  <table class='table table-striped table-condensed table-hover'>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Size</th>
-        <th>Time</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @available_sales.each do |s| %>
+<% if @available_sales %>
+  <div class='table-responsive'>
+    <table class='table table-striped table-condensed table-hover'>
+      <thead>
         <tr>
-          <td><%= s[:date] %></td>
-          <td><%= s[:size] %></td>
-          <td><%= s[:time] %></td>
+          <th>Date</th>
+          <th>Size</th>
+          <th>Time</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        <% @available_sales.each do |s| %>
+          <tr>
+            <td><%= s[:date] %></td>
+            <td><%= s[:size] %></td>
+            <td><%= s[:time] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
