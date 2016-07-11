@@ -71,7 +71,8 @@ Rails.application.routes.draw do
 
   get 'about'         =>  'static_pages#about'
   get 'todo'          =>  'static_pages#todo'
-  get 'xml-terminals' => 'static_pages#terminals'
+  get 'xml-terminals' =>  'static_pages#terminals'
+  get 'import-sales'  =>  'static_pages#import_sales'
 
   resources :commissions, only: [ :index, :show, :new, :create ]
 

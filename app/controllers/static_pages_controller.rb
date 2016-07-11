@@ -43,6 +43,38 @@ class StaticPagesController < ApplicationController
     # </div>
   end
 
+  def import_sales
+    last_date = Sale.maximum(:date).strftime '%Y-%m-%d'
+    start_time = Time.now
+    begin
+      @available_sales = get_available_sales.select {|a| a[:date] > last_date}
+    rescue => e
+      Rails.logger.info "Got this exception while reading available sales files: " +
+        "\033[31m#{ e }\033[0m"
+    end
+    if @available_sales and @available_sales.size > 0
+      @available_sales.each do |s|
+        sales = get_sales s[:date]
+        tot = { sales: 0.0, payout: 0.0 }
+        tot = sales.inject(tot) do |t, s|
+                t[:sales]   += s[:sales]
+                t[:payout]  += s[:payout]
+                t
+              end
+        s[:sales]   = tot[:sales]
+        s[:payout]  = tot[:payout]
+        s[:records] = sales
+      end
+
+      # for testing we import the first only
+      arr = [ ]
+      @available_sales[0][:records].each {|r| arr << Sale.new(r)}
+      Sale.import arr
+
+      @elapsed_time = Time.now - start_time
+    end
+  end
+
   def terminals
     # first we must have a saved xml file into our local yaml file
     # h = parse_terminals_xml File.read(Rails.root + 'db/UmDlm.xml')
@@ -99,6 +131,43 @@ private
     end
 
     a
+  end
+
+  def get_sales(date)
+    date = date.strftime('%Y-%m-%d') if date.instance_of? Date
+    
+    uri = URI.parse(XML_PATH + date + '.xml')
+    http = Net::HTTP.new uri.host, uri.port
+    http.open_timeout = 5
+    http.read_timeout = 5
+    req = Net::HTTP::Get.new uri.request_uri
+    res = http.request req
+
+    raise "Got error: #{ res.code }" if res.code != '200'
+
+    doc = Nokogiri::XML res.body.force_encoding('utf-8')
+    arr = [ ]
+    doc.xpath('//flows/r').each do |r|
+      next if r['u'] == '0.00' and r['i'] == '0.00'
+      
+      terminal_id = r['uid'].to_i
+      agent_id    = r['aid'].to_i
+      d           = r['d']
+
+      r.xpath('.//gx/g').each do |g|
+        next if g['u'] == '0.00' and g['i'] == '0.00' 
+          arr << {
+            date:         d,
+            terminal_id:  terminal_id,
+            agent_id:     agent_id,
+            game_id:      g['id'].to_i,
+            sales:        g['u'].to_f,
+            payout:       g['i'].to_f,
+          }
+      end
+    end
+
+    arr # return result
   end
 
   def get_terminals_xml

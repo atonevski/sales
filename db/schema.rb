@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606094852) do
+ActiveRecord::Schema.define(version: 20160711070531) do
 
   create_table "agents", force: :cascade do |t|
     t.string   "name"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20160606094852) do
   end
 
   add_index "sales", ["agent_id"], name: "index_sales_on_agent_id"
+  add_index "sales", ["date"], name: "index_sales_on_date"
   add_index "sales", ["game_id"], name: "index_sales_on_game_id"
   add_index "sales", ["terminal_id"], name: "index_sales_on_terminal_id"
 

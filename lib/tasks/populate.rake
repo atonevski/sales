@@ -19,7 +19,7 @@ namespace :db do
   desc 'Populate games table'
   task init_games: [:environment, :purge_games] do
     next if Game.count > 0 or Category.count > 0
-    h = YAML::load File.open(Rails.root + 'db/init_db.yml')
+    h = YAML::load File.open(Rails.root + 'db/init_db.yaml')
     inst_cat = YAML::load File.open(Rails.root + 'db/inst_cat.yml')
     h[:games].each do |g|
       Game.create g
@@ -49,14 +49,19 @@ namespace :db do
   desc 'Populate agents table'
   task init_agents: [:environment, :purge_agents] do
     next if Agent.count > 0 # or Category.count > 0 # should be Terminal.count
-    h = YAML::load File.open(Rails.root + 'db/init_db.yml')
-    h[:agents].each do |a|
-      Agent.create a
-    end
-    h[:terminals].each do |t|
-      Terminal.create t
-    end
-   
+    h = YAML::load File.open(Rails.root + 'db/init_db.yaml')
+    puts "Total agents: #{ h[:agents].size }, Total terminals: #{ h[:terminals].size }"
+
+    aa = [ ]
+    h[:agents].each {|a| aa << Agent.new(a) }
+    Agent.import aa
+
+    ta = [ ]
+    h[:terminals].each {|t| ta << Terminal.new(t)}
+    Terminal.import ta
+
+    puts "After insert"
+    puts "Total agents: #{ Agent.count }, Total terminals: #{ Terminal.count }"
   end
 
   desc 'Purge sales table'
@@ -81,9 +86,6 @@ namespace :db do
       yaml_file = year == '2015' ? 'db/sales-2015-.yaml' : "db/sales-#{year}.yaml"
       a = YAML::load File.open(Rails.root + yaml_file)
       puts "Importing #{ year }"
-      # a.each do |rec|
-      #   Sale.create rec
-      # end
 
       puts "creating sa..."
       sa = [ ]
