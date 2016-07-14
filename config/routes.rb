@@ -74,9 +74,11 @@ Rails.application.routes.draw do
   get 'xml-terminals' =>  'static_pages#terminals'
   get 'import-sales'  =>  'static_pages#import_sales'
 
-
+  # reports
   get 'annually-per-month-per-game/(:id)' =>
         'reports#annually_per_month_per_game'
+  get 'instants-annually-per-month-per-game/(:id)' =>
+        'reports#instants_annually_per_month_per_game'
 
   resources :commissions, only: [ :index, :show, :new, :create ]
 
