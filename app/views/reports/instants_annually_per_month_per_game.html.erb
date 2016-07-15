@@ -111,7 +111,11 @@
           </tr>
         </tbody>
         <tbody>
-          <tr> </tr>
+          <tr>
+            <td colspan='2' style='text-align: center; font-weight: bold;'>{{ terminals.length }}</td>
+            <td  style='text-align: right; font-weight: bold;' ng-repeat='month in months'>
+              {{ terminal_totals[0][month] }}</td>
+          </tr>
         </tbody>
       </table>
     </div>

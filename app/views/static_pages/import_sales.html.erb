@@ -12,8 +12,8 @@
         </tr>
       </thead>
       <tbody>
-        <% @available_sales.each do |s| %>
-          <tr>
+        <% @available_sales.each_with_index do |s, i| %>
+          <tr class='<%= (i==0) ? "success" : "" %>' >
             <td><%= s[:date] %></td>
             <td><%= s[:size] %></td>
             <td><%= s[:time] %></td>

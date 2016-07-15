@@ -13,20 +13,23 @@ angular.module('reports').controller 'AnnuallyPerMonthPerGame', ($scope, $http) 
 
   $scope.setYear = (y)->
     $scope.year = y
+    $scope.sales = $scope.tickets = $scope.terminals = $scope.terminal_totals = null
     $http.get("/annually-per-month-per-game/#{ y }.json")
         .then (res) ->
-            $scope.year       = res.data.year
-            $scope.years      = [res.data.first_year .. res.data.last_year]
-            $scope.sales      = res.data.sales
-            $scope.terminals  = res.data.terminals
+            $scope.year             = res.data.year
+            $scope.years            = [res.data.first_year .. res.data.last_year]
+            $scope.sales            = res.data.sales
+            $scope.terminals        = res.data.terminals
+            $scope.terminal_totals  = res.data.terminal_totals
             console.log "Loading annual sales for #{ $scope.year }"
 
   $http.get('/annually-per-month-per-game/2016.json')
        .then (res) ->
-          $scope.year       = res.data.year
-          $scope.years      = [res.data.first_year .. res.data.last_year]
-          $scope.sales      = res.data.sales
-          $scope.terminals  = res.data.terminals
+          $scope.year             = res.data.year
+          $scope.years            = [res.data.first_year .. res.data.last_year]
+          $scope.sales            = res.data.sales
+          $scope.terminals        = res.data.terminals
+          $scope.terminal_totals  = res.data.terminal_totals
           console.log 'Initial load'
 
   # second argument === 'mk' will return mk thousand separated format
@@ -59,22 +62,26 @@ angular.module('reports').controller 'InstantsAnnuallyPerMonthPerGame', ($scope,
 
   $scope.setYear = (y)->
     $scope.year = y
+    $scope.sales = $scope.tickets = $scope.terminals = $scope.terminal_totals = null
+
     $http.get("/instants-annually-per-month-per-game/#{ y }.json")
         .then (res) ->
-            $scope.year       = res.data.year
-            $scope.years      = [res.data.first_year .. res.data.last_year]
-            $scope.sales      = res.data.sales
-            $scope.tickets    = res.data.tickets
-            $scope.terminals  = res.data.terminals
+            $scope.year             = res.data.year
+            $scope.years            = [res.data.first_year .. res.data.last_year]
+            $scope.sales            = res.data.sales
+            $scope.tickets          = res.data.tickets
+            $scope.terminals        = res.data.terminals
+            $scope.terminal_totals  = res.data.terminal_totals
             console.log "Loading annual sales for #{ $scope.year }"
 
   $http.get('/instants-annually-per-month-per-game/2016.json')
        .then (res) ->
-          $scope.year       = res.data.year
-          $scope.years      = [res.data.first_year .. res.data.last_year]
-          $scope.sales      = res.data.sales
-          $scope.tickets    = res.data.tickets
-          $scope.terminals  = res.data.terminals
+          $scope.year             = res.data.year
+          $scope.years            = [res.data.first_year .. res.data.last_year]
+          $scope.sales            = res.data.sales
+          $scope.tickets          = res.data.tickets
+          $scope.terminals        = res.data.terminals
+          $scope.terminal_totals  = res.data.terminal_totals
           console.log 'Initial load'
 
   # second argument === 'mk' will return mk thousand separated format

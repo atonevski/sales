@@ -11,6 +11,10 @@ class ReportsController < ApplicationController
     @year = params[:id] || @last_year
 
     qry =<<-EOT
+
+      --
+      -- SALES PER MONTH PER GAME
+      --
       SELECT
         s.game_id         AS game_id,
         g.name            AS name,
@@ -54,7 +58,12 @@ class ReportsController < ApplicationController
     EOT
     @sales = ActiveRecord::Base.connection.execute qry
 
+    # terminals
     qry =<<-EOT
+
+      --
+      -- ALL GAMES active terminals per month per game
+      --
       SELECT
         s.game_id         AS game_id,
         g.name            AS name,
@@ -103,15 +112,68 @@ class ReportsController < ApplicationController
           row[m] = nil if row[m] == 0
       end
     end
+
+    # terminals: total active terminals per month
+    qry =<<-EOT
+
+      --
+      -- ALL GAMES: total active terminals per month
+      --
+      SELECT
+        COUNT(DISTINCT s.january)    AS january,
+        COUNT(DISTINCT s.february)   AS february,
+        COUNT(DISTINCT s.march)      AS march,
+        COUNT(DISTINCT s.april)      AS april,
+        COUNT(DISTINCT s.may)        AS may,
+        COUNT(DISTINCT s.june)       AS june,
+        COUNT(DISTINCT s.july)       AS july,
+        COUNT(DISTINCT s.august)     AS august,
+        COUNT(DISTINCT s.september)  AS september,
+        COUNT(DISTINCT s.october)    AS october,
+        COUNT(DISTINCT s.november)   AS november,
+        COUNT(DISTINCT s.december)   AS december
+      FROM (
+        SELECT
+          game_id,
+          CASE WHEN substr(date, 6, 2) = '01'THEN terminal_id ELSE NULL END AS january,
+          CASE WHEN substr(date, 6, 2) = '02'THEN terminal_id ELSE NULL END AS february,
+          CASE WHEN substr(date, 6, 2) = '03'THEN terminal_id ELSE NULL END AS march,
+          CASE WHEN substr(date, 6, 2) = '04'THEN terminal_id ELSE NULL END AS april,
+          CASE WHEN substr(date, 6, 2) = '05'THEN terminal_id ELSE NULL END AS may,
+          CASE WHEN substr(date, 6, 2) = '06'THEN terminal_id ELSE NULL END AS june,
+          CASE WHEN substr(date, 6, 2) = '07'THEN terminal_id ELSE NULL END AS july,
+          CASE WHEN substr(date, 6, 2) = '08'THEN terminal_id ELSE NULL END AS august,
+          CASE WHEN substr(date, 6, 2) = '09'THEN terminal_id ELSE NULL END AS september,
+          CASE WHEN substr(date, 6, 2) = '10'THEN terminal_id ELSE NULL END AS october,
+          CASE WHEN substr(date, 6, 2) = '11'THEN terminal_id ELSE NULL END AS november,
+          CASE WHEN substr(date, 6, 2) = '12'THEN terminal_id ELSE NULL END AS december
+        FROM
+          sales
+        WHERE
+          date BETWEEN '#{ @year }-01-01' AND '#{ @year }-12-31'
+          AND sales > 0.0
+      ) AS s
+        INNER JOIN games AS g
+          ON s.game_id = g.id
+    EOT
+    @terminal_totals = ActiveRecord::Base.connection.execute qry
+    @terminal_totals.each do |row|
+      %W{january february march april may june july august september
+         october november december}.each do |m|
+          row[m] = nil if row[m] == 0
+      end
+    end
+
     respond_to do |fmt|
       fmt.json { 
         Rails.logger.info 'FROM JSON'
         render json: { 
-          first_year: @first_year,
-          last_year:  @last_year,
-          year:       @year,
-          sales:      @sales,
-          terminals:  @terminals,
+          first_year:       @first_year,
+          last_year:        @last_year,
+          year:             @year,
+          sales:            @sales,
+          terminals:        @terminals,
+          terminal_totals:  @terminal_totals,
         }
       }
       fmt.html 
@@ -128,6 +190,9 @@ class ReportsController < ApplicationController
     @year = params[:id] || @last_year
 
     qry =<<-EOT
+      --
+      -- INSTANTS: sales (money)
+      --
       SELECT
         s.game_id         AS game_id,
         g.name            AS name,
@@ -173,7 +238,12 @@ class ReportsController < ApplicationController
     EOT
     @sales = ActiveRecord::Base.connection.execute qry
 
+    # tickets
     qry =<<-EOT
+
+      --
+      -- INSTANTS: tickets
+      --
       SELECT
         s.game_id         AS game_id,
         g.name            AS name,
@@ -219,7 +289,12 @@ class ReportsController < ApplicationController
     EOT
     @tickets = ActiveRecord::Base.connection.execute qry
 
+    # terminals
     qry =<<-EOT
+
+      --
+      -- INSTANTS: active terminals per game
+      --
       SELECT
         s.game_id         AS game_id,
         g.name            AS name,
@@ -270,16 +345,70 @@ class ReportsController < ApplicationController
           row[m] = nil if row[m] == 0
       end
     end
+
+    # terminals: total active terminals per month
+    qry =<<-EOT
+
+      --
+      -- INSTANTS: total active terminals per month
+      --
+      SELECT
+        COUNT(DISTINCT s.january)    AS january,
+        COUNT(DISTINCT s.february)   AS february,
+        COUNT(DISTINCT s.march)      AS march,
+        COUNT(DISTINCT s.april)      AS april,
+        COUNT(DISTINCT s.may)        AS may,
+        COUNT(DISTINCT s.june)       AS june,
+        COUNT(DISTINCT s.july)       AS july,
+        COUNT(DISTINCT s.august)     AS august,
+        COUNT(DISTINCT s.september)  AS september,
+        COUNT(DISTINCT s.october)    AS october,
+        COUNT(DISTINCT s.november)   AS november,
+        COUNT(DISTINCT s.december)   AS december
+      FROM (
+        SELECT
+          game_id,
+          CASE WHEN substr(date, 6, 2) = '01'THEN terminal_id ELSE NULL END AS january,
+          CASE WHEN substr(date, 6, 2) = '02'THEN terminal_id ELSE NULL END AS february,
+          CASE WHEN substr(date, 6, 2) = '03'THEN terminal_id ELSE NULL END AS march,
+          CASE WHEN substr(date, 6, 2) = '04'THEN terminal_id ELSE NULL END AS april,
+          CASE WHEN substr(date, 6, 2) = '05'THEN terminal_id ELSE NULL END AS may,
+          CASE WHEN substr(date, 6, 2) = '06'THEN terminal_id ELSE NULL END AS june,
+          CASE WHEN substr(date, 6, 2) = '07'THEN terminal_id ELSE NULL END AS july,
+          CASE WHEN substr(date, 6, 2) = '08'THEN terminal_id ELSE NULL END AS august,
+          CASE WHEN substr(date, 6, 2) = '09'THEN terminal_id ELSE NULL END AS september,
+          CASE WHEN substr(date, 6, 2) = '10'THEN terminal_id ELSE NULL END AS october,
+          CASE WHEN substr(date, 6, 2) = '11'THEN terminal_id ELSE NULL END AS november,
+          CASE WHEN substr(date, 6, 2) = '12'THEN terminal_id ELSE NULL END AS december
+        FROM
+          sales
+        WHERE
+          date BETWEEN '#{ @year }-01-01' AND '#{ @year }-12-31'
+          AND sales > 0.0
+      ) AS s
+        INNER JOIN games AS g
+          ON s.game_id = g.id
+      WHERE
+          g.type = 'INSTANT'
+    EOT
+    @terminal_totals = ActiveRecord::Base.connection.execute qry
+    @terminal_totals.each do |row|
+      %W{january february march april may june july august september
+         october november december}.each do |m|
+          row[m] = nil if row[m] == 0
+      end
+    end
     respond_to do |fmt|
       fmt.json { 
         Rails.logger.info 'FROM JSON'
         render json: { 
-          first_year: @first_year,
-          last_year:  @last_year,
-          year:       @year,
-          sales:      @sales,
-          tickets:    @tickets,
-          terminals:  @terminals,
+          first_year:       @first_year,
+          last_year:        @last_year,
+          year:             @year,
+          sales:            @sales,
+          tickets:          @tickets,
+          terminals:        @terminals,
+          terminal_totals:  @terminal_totals,
         }
       }
       fmt.html 

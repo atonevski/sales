@@ -71,14 +71,14 @@ Rails.application.routes.draw do
 
   get 'about'         =>  'static_pages#about'
   get 'todo'          =>  'static_pages#todo'
-  get 'xml-terminals' =>  'static_pages#terminals'
-  get 'import-sales'  =>  'static_pages#import_sales'
+  get 'xml-terminals' =>  'static_pages#terminals', as: 'xml_terminals'
+  get 'import-sales'  =>  'static_pages#import_sales', as: 'import_sales'
 
   # reports
   get 'annually-per-month-per-game/(:id)' =>
-        'reports#annually_per_month_per_game'
+        'reports#annually_per_month_per_game', as: 'annually_per_month_per_game'
   get 'instants-annually-per-month-per-game/(:id)' =>
-        'reports#instants_annually_per_month_per_game'
+        'reports#instants_annually_per_month_per_game', as: 'instants_annually_per_month_per_game'
 
   resources :commissions, only: [ :index, :show, :new, :create ]
 
