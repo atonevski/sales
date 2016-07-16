@@ -1,0 +1,57 @@
+<header class='page-header'>
+  <h2>Instants: General info</h2>
+</header>
+
+<div class='row'>
+  <div class='table-responsive'>
+    <table class='table table-hover table-condensed table-striped'>
+      <thead>
+        <tr>
+          <th style='text-align: center'>id</th>
+          <th>game</th>
+          <th style='text-align: center'>price</th>
+          <th style='text-align: center'>categories</th>
+          <th style='text-align: center'>win</th>
+          <th style='text-align: center'>months</th>
+          <th style='text-align: right'>volume</th>
+          <th style='text-align: right'>sold</th>
+          <th style='text-align: center'>sold (%)</th>
+          <th style='text-align: right'>average</th>
+          <th style='text-align: right'>start</th>
+          <th style='text-align: right'>last</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @general_info.each do |r| %>
+          <% start   = Date.parse r['started_on'] %>
+          <% last    = Date.parse r['last_sales_on'] %>
+          <% months  = month_diff start, last %>
+          <% months = 1 if months == 0 %>
+          <tr>
+            <td style='text-align: center'><%= r['game_id'] %></td>
+            <td><%= link_to r['name'], game_path(r['game_id']) %></td>
+            <td style='text-align: center'><%= r['price'] %></td>
+            <td style='text-align: center'><%= r['categories'] %></td>
+            <td style='text-align: center'><%= number_with_precision r['volume']*1.0/
+              r['winning'], precision: 2, delimiter: ',' %></td>
+            <td style='text-align: center'><%= months %></td>
+            <td style='text-align: right'><%= number_with_precision r['volume'],
+              precision: 0, delimiter: ',' %></td>
+            <td style='text-align: right'><%= number_with_precision r['sold'],
+              precision: 0, delimiter: ',' %></td>
+            <td style='text-align: center'>
+              <%= number_with_precision(r['sold']*100.0/r['volume'],
+                precision: 2, delimiter: ',') + ' %' %></td>
+            <td style='text-align: right'>
+              <%= number_with_precision r['sold']/months,
+                precision: 0, delimiter: ',' %></td>
+            <td style='text-align: right'>
+              <%= start.strftime '%d.%m.%Y' %></td>
+            <td style='text-align: right'>
+              <%= last.strftime '%d.%m.%Y' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

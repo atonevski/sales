@@ -78,7 +78,9 @@ Rails.application.routes.draw do
   get 'annually-per-month-per-game/(:id)' =>
         'reports#annually_per_month_per_game', as: 'annually_per_month_per_game'
   get 'instants-annually-per-month-per-game/(:id)' =>
-        'reports#instants_annually_per_month_per_game', as: 'instants_annually_per_month_per_game'
+        'reports#instants_annually_per_month_per_game',
+        as: 'instants_annually_per_month_per_game'
+  get 'instants-general' => 'reports#instants_general', as: 'instants_general'
 
   resources :commissions, only: [ :index, :show, :new, :create ]
 

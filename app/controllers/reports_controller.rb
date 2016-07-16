@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
 
   skip_after_action :verify_authorized, :verify_policy_scoped
+  helper_method :month_diff
 
   ##
   # all games
@@ -413,6 +414,58 @@ class ReportsController < ApplicationController
       }
       fmt.html 
     end
+  end
 
+  ##
+  # instant general info
+  def instants_general
+    qry =<<-EOT
+
+      --
+      -- INSTANTS: GENERAL INFO
+      --
+      SELECT
+        g.id                  AS game_id,
+        g.name                AS name,
+        g.price               AS price,
+        c.categories          AS categories,
+        c.winning             AS winning,
+        g.volume              AS volume,
+        SUM(s.sales)/g.price  AS sold,
+        MIN(s.date)           AS started_on,
+        MAX(s.date)           AS last_sales_on
+      FROM
+        sales AS s
+        INNER JOIN games AS g
+          ON s.game_id = g.id
+        INNER JOIN (
+          SELECT 
+            game_id, 
+            COUNT(*) AS categories,
+            SUM(count) AS winning
+          FROM categories
+          GROUP BY game_id
+        ) AS c
+          ON s.game_id = c.game_id
+      WHERE
+        g.type = 'INSTANT'
+      GROUP BY g.id
+    EOT
+    @general_info = ActiveRecord::Base.connection.execute qry
+    @last_sales_on = Sale.maximum(:date)
+    respond_to do |fmt|
+      fmt.json { render json: @general_info }
+      fmt.html 
+    end
+  end
+
+private
+  def month_diff(d1, d2)
+    d1 = Date.parse d1 unless d1.instance_of? Date
+    d2 = Date.parse d2 unless d2.instance_of? Date
+    d1, d2 = [d2, d1] if d1 > d2
+      
+    d2.year*12 + d2.month - d1.year*12 - d1.month
+    # jan 2017 - nov 2016: 12 + 1 - 11 => 2
   end
 end

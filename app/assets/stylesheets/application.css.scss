@@ -76,7 +76,7 @@ a.at-pdf {
 /* nav icons */
 a.at-nav-signup, a.at-nav-signin, a.at-nav-signout, a.at-nav-home,
 a.at-nav-agents, a.at-nav-todo, a.at-nav-admin, a.at-nav-users,
-a.at-nav-links, a.at-nav-commissions {
+a.at-nav-links, a.at-nav-commissions, a.at-nav-reports, a.at-nav-utils {
   &:before {
     font-family: 'FontAwesome';
     padding-right: 0.35em;
@@ -93,6 +93,8 @@ a.at-nav-admin        { &:before { @extend .fa-user-secret; } }
 a.at-nav-users        { &:before { @extend .fa-users; } }
 a.at-nav-links        { &:before { @extend .fa-link; } }
 a.at-nav-commissions  { &:before { @extend .fa-calendar-o; } }
+a.at-nav-reports      { &:before { @extend .fa-file-text-o; } }
+a.at-nav-utils        { &:before { @extend .fa-wrench; } }
 
 /* flash messages styling */
 .alert-notice { @extend .alert-success; }
