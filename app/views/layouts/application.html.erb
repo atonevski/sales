@@ -43,7 +43,7 @@
               <%= link_to 'Todo', todo_path, class: 'at-nav-todo' %></li>
 
             <!-- reports -->
-            <li class='dropdown'>
+            <li class='dropdown<%= current_user ? '' : ' disabled' %>'>
               <a href='#' class='dropdown-toggle at-nav-reports' data-toggle='dropdown'>
                 Reports<span class='caret'></span> </a>
                 <ul class='dropdown-menu'>
@@ -61,7 +61,7 @@
             </li>
 
             <!-- Utils -->
-            <li class='dropdown'>
+            <li class='dropdown<%= current_user ? '' : ' disabled' %>'>
               <a href='#' class='dropdown-toggle at-nav-utils' data-toggle='dropdown'>
                 Utils<span class='caret'></span> </a>
                 <ul class='dropdown-menu'>

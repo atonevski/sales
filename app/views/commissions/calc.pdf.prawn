@@ -7,6 +7,10 @@ prawn_document(page_size: 'A4') do |pdf|
       bold:   droid_bold,
   })
 
+  pdf.image Rails.root + 'app/assets/images/logo.png',
+            width: (72*180/25.4).round,
+            height: (72*32/25.4).round
+
   pdf.move_down 20
   pdf.font 'droid'
   pdf.text "#{ @agent.name } ##{ @agent.id }", size: 18, style: :bold

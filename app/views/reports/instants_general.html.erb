@@ -1,7 +1,18 @@
 <header class='page-header'>
   <h2>Instants: General info</h2>
 </header>
-
+<dl class='dl-horizontal'>
+  <dt>Last sales on</dt>
+    <dd><%= @last_sales_on.strftime '%d.%m.%Y' %></dd>
+  <dt>Active instant games</dt> 
+    <dd><%= @general_info.to_a.
+            select {|r| Date.parse(r['last_sales_on']) >= @last_sales_on}.length %></dd>
+  <dt>Usold</dt> 
+    <dd><%= number_with_precision @general_info.
+            to_a.select {|r| Date.parse(r['last_sales_on']) >= @last_sales_on}.
+            inject(0) {|sum, r| sum + r['volume'] - r['sold']}, precision: 0, delimiter: ',' %>
+    </dd>
+</dl>
 <div class='row'>
   <div class='table-responsive'>
     <table class='table table-hover table-condensed table-striped'>

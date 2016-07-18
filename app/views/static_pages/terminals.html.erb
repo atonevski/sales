@@ -7,11 +7,11 @@
     </dd>
   <dt>Total agents</dt><dd><%= @terminals[:terminals].map {|t| t[:agent_id]}.uniq.length %></dd>
   <dt>Total terminals</dt><dd><%= @terminals[:terminals].length %></dd>
-  <dt>Status 0 terminals</dt>
+  <dt>Status (0) terminals</dt>
     <dd><%= @terminals[:terminals].select {|t| t[:status] == '0'}.map {|t| t[:id]}.length %></dd>
-  <dt>Status -1 terminals</dt>
+  <dt>Status (-1) terminals</dt>
     <dd><%= @terminals[:terminals].select {|t| t[:status] == '-1'}.map {|t| t[:id]}.length %></dd>
-  <dt>Status -100 terminals</dt>
+  <dt>Status (-100) terminals</dt>
     <dd><%= @terminals[:terminals].select {|t| t[:status] == '-100'}.map {|t| t[:id]}.length %></dd>
 </dl>
 

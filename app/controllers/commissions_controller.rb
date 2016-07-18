@@ -31,10 +31,17 @@ class CommissionsController < ApplicationController
                     .order(:terminal_id).to_a
                     .map {|r| r.terminal_id}
     @terminals = Terminal.find(terminal_ids)
+    @invoice_id = params[:invoice_id]
+    @invoice_date = params[:invoice_date]
+    @invoiced_correctly = params[:'invoiced-correctly']
+    @invoice_sum = params[:invoice_sum]
+
+    Rails.logger.info params.inspect
    
     respond_to do |fmt|
       fmt.html { render 'calc' }
-      fmt.pdf  { render 'calc', layout: false }
+      # fmt.pdf  { render 'calc', layout: false }
+      fmt.pdf  { render 'letter', layout: false }
     end
   end
 
