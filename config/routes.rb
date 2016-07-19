@@ -83,6 +83,7 @@ Rails.application.routes.draw do
   get 'instants-general' => 'reports#instants_general', as: 'instants_general'
 
   resources :commissions, only: [ :index, :show, :new, :create ]
+  resources :commission_letters, only: [:index]
 
   namespace :admin do
     root 'application#index'

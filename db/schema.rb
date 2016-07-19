@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711070531) do
+ActiveRecord::Schema.define(version: 20160719092619) do
 
   create_table "agents", force: :cascade do |t|
     t.string   "name"
@@ -30,6 +30,22 @@ ActiveRecord::Schema.define(version: 20160711070531) do
   end
 
   add_index "categories", ["game_id"], name: "index_categories_on_game_id"
+
+  create_table "commission_letters", force: :cascade do |t|
+    t.boolean  "invoiced_correctly"
+    t.decimal  "incorrect_sum",      precision: 12, scale: 2
+    t.date     "invoice_date"
+    t.integer  "user_id"
+    t.integer  "agent_id"
+    t.string   "from"
+    t.string   "to"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "invoice_id"
+  end
+
+  add_index "commission_letters", ["agent_id"], name: "index_commission_letters_on_agent_id"
+  add_index "commission_letters", ["user_id"], name: "index_commission_letters_on_user_id"
 
   create_table "games", force: :cascade do |t|
     t.string   "name"

@@ -67,9 +67,11 @@
                 <ul class='dropdown-menu'>
                   <li><%= link_to 'Terminals on the system', xml_terminals_path, 
                   'data-no-turbolink' => true %></li>
-                  <li class='devider'></li>
+                  <li class='divider'></li>
                   <li><%= link_to 'Import sales', import_sales_path, 
                   'data-no-turbolink' => true %></li>
+                  <li class='divider'></li>
+                  <li><%= link_to 'Commission letters', commission_letters_path %></li>
                 </ul>
             </li>
             <% admins_only do %>

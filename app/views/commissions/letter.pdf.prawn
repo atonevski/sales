@@ -2,6 +2,10 @@ prawn_document(page_size: 'A4') do |pdf|
   img_width = (72*180/25.4).round
   img_height = (72*32/25.4).round
 
+  # coordinates are from bottom left corner
+  counter_x = 20
+  counter_y = 40
+
   droid = "#{Prawn::BASEDIR}/data/fonts/DroidSans.ttf"
   droid_bold ="#{Prawn::BASEDIR}/data/fonts/DroidSans-Bold.ttf"
   
@@ -50,7 +54,7 @@ prawn_document(page_size: 'A4') do |pdf|
         (
           @invoiced_correctly == 'yes' ? number_with_precision(total_commissions, precision: 2, delimiter: ',', separator: '.') :
             @invoice_sum
-        ) + "</b>",
+        ) + "</b>, за #{ format_period :mk }",
       inline_format: true,
 
     }
@@ -64,7 +68,7 @@ prawn_document(page_size: 'A4') do |pdf|
     pdf.text "\n\nПодатоците <u>не се точно</u> пресметани во согласност со продажбата на " +
              "#{ @agent.name } во горенаведениот период. " +
              "Точниот износ кој треба да стои е: <b>" +
-             "#{ number_with_precision(total_commissions, precision: 2, delimiter: ',', separator: '.') }</b> " +
+             "#{ number_with_precision(total_commissions, precision: 2, delimiter: '.', separator: ',') }</b> " +
              "денари.\n\n\n\n",
              inline_format: true
   end
@@ -82,4 +86,22 @@ prawn_document(page_size: 'A4') do |pdf|
   ]]
 
   pdf.table data, width: img_width, cell_style: { borders: [], padding: 20 }
+  
+  incorrect_sum = if @invoice_sum and @invoice_sum =~ /^(\d{1,3})(.\d{3})*(,\d{2})?$/
+                    @invoice_sum.gsub('.', '').gsub(',', '.').to_f
+                  else
+                    @invoice_sum.to_f
+                  end
+
+  letter = CommissionLetter.create(
+    user_id:            current_user.id,
+    agent_id:           @agent.id,
+    invoice_id:         @invoice_id,
+    invoiced_correctly: @invoiced_correctly == 'yes',
+    incorrect_sum:      incorrect_sum,
+    invoice_date:       Date.parse(@invoice_date.split('.').reverse.join('-')),
+    from:               @from,
+    to:                 @to
+  )
+  pdf.text_box letter.id.to_s, at: [counter_x, counter_y], rotate: 90, size: 5
 end

@@ -1,0 +1,38 @@
+<header class='page-header'>
+  <h2>Commission letters</h2>
+</header>
+<div class='table-responsive'>
+  <table class='table table-striped table-condensed table-hover'>
+    <thead>
+      <tr>
+        <th style='text-align: center'>Id</th>
+        <th>User</th>
+        <th>Agent</th>
+        <th>Inv. id</th>
+        <th>Inv. date</th>
+        <th>Inv. correct?</th>
+        <th>Inv. sum</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @commission_letters.order(id: :desc).each do |l| %>
+        <tr class='<%= l.invoiced_correctly? ? '' : 'danger' %>'>
+          <td align='center'><%= l.id %></td>
+          <td><%= l.user.email %></td>
+          <td><%= l.agent.name %></td>
+          <td><%= l.invoice_id %></td>
+          <td><%= l.invoice_date.strftime '%d.%m.%Y' %></td>
+          <td><%= l.invoiced_correctly? ? 'Y' : 'N' %></td>
+          <td><%= number_with_precision(l.incorrect_sum, precision: 2, 
+                    separator: ',', delimiter: '.') %></td>
+          <td><%= l.from %></td>
+          <td><%= l.to %></td>
+          <td><%= l.created_at.strftime '%d.%m.%Y' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

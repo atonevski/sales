@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :commission_letters
+
   def archive!
     # we only archive once and keep this timestamp
     self.update(archived_at: Time.now) unless archived_at
