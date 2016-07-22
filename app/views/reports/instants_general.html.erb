@@ -7,7 +7,9 @@
   <dt>Active instant games</dt> 
     <dd><%= @general_info.to_a.
             select {|r| Date.parse(r['last_sales_on']) >= @last_sales_on}.length %></dd>
-  <dt>Usold</dt> 
+  <dt>Total instant games</dt> 
+    <dd><%= @general_info.count %></dd>
+  <dt>Remain</dt> 
     <dd><%= number_with_precision @general_info.
             to_a.select {|r| Date.parse(r['last_sales_on']) >= @last_sales_on}.
             inject(0) {|sum, r| sum + r['volume'] - r['sold']}, precision: 0, delimiter: ',' %>
@@ -23,6 +25,7 @@
           <th style='text-align: center'>price</th>
           <th style='text-align: center'>categories</th>
           <th style='text-align: center'>win</th>
+          <th style='text-align: center'>w. funds (%)</th>
           <th style='text-align: center'>months</th>
           <th style='text-align: right'>volume</th>
           <th style='text-align: right'>sold</th>
@@ -38,13 +41,15 @@
           <% last    = Date.parse r['last_sales_on'] %>
           <% months  = month_diff start, last %>
           <% months = 1 if months == 0 %>
-          <tr>
+          <tr class='<%= last < @last_sales_on ? 'text-warning' : '' %>'>
             <td style='text-align: center'><%= r['game_id'] %></td>
             <td><%= link_to r['name'], game_path(r['game_id']) %></td>
             <td style='text-align: center'><%= r['price'] %></td>
             <td style='text-align: center'><%= r['categories'] %></td>
             <td style='text-align: center'><%= number_with_precision r['volume']*1.0/
               r['winning'], precision: 2, delimiter: ',' %></td>
+            <td style='text-align: center'><%= number_with_precision(r['winnings_fund']*100.0/
+              r['volume']/r['price'], precision: 2, delimiter: ',') + '%' %></td>
             <td style='text-align: center'><%= months %></td>
             <td style='text-align: right'><%= number_with_precision r['volume'],
               precision: 0, delimiter: ',' %></td>

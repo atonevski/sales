@@ -114,3 +114,33 @@ angular.module('reports').controller 'InstantsAnnuallyPerMonthPerGame', ($scope,
         tot ||= 0
         tot += gt[month]
     tot
+
+angular.module('reports').controller 'SalesPerCity', ($scope, $http) ->
+
+  addDaysTo = (days, date) ->
+    return new Date(date.toTime() + days*1000*60*60*24)
+
+  # second argument === 'mk' will return mk thousand separated format
+  $scope.thou_sep = (n) ->
+    return n unless n?
+    
+    n = n.toString()
+    n = n.replace /(\d+?)(?=(\d{3})+(\D|$))/g, '$1,'
+    return n unless arguments.length > 1
+    if arguments[1] is 'mk'
+      n = n.replace /\./g, ';'
+      n = n.replace /,/g, '.'
+      n = n.replace /;/g, ','
+    n # return this value
+
+  $http({
+    url:      '/sales-per-city',
+    method:   'GET',
+    params:   { from: '2016-07-01', to: '2016-07-20' },
+    headers:  { Accept: 'application/json' }
+  }).then (res) ->
+      $scope.from         = res.data.from
+      $scope.to           = res.data.to
+      $scope.total_sales  = res.data.total_sales
+      $scope.city_sales   = res.data.city_sales
+      console.log 'Sales per city: initial load'

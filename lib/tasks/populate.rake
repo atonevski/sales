@@ -20,7 +20,7 @@ namespace :db do
   task init_games: [:environment, :purge_games] do
     next if Game.count > 0 or Category.count > 0
     h = YAML::load File.open(Rails.root + 'db/init_db.yaml')
-    inst_cat = YAML::load File.open(Rails.root + 'db/inst_cat.yml')
+    inst_cat = YAML::load File.open(Rails.root + 'db/inst_cat.yaml')
     h[:games].each do |g|
       Game.create g
       cat = inst_cat.find { |x| x[:id] == g[:id] }

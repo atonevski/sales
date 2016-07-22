@@ -81,6 +81,7 @@ Rails.application.routes.draw do
         'reports#instants_annually_per_month_per_game',
         as: 'instants_annually_per_month_per_game'
   get 'instants-general' => 'reports#instants_general', as: 'instants_general'
+  get 'sales-per-city' => 'reports#sales_per_city', as: 'sales_per_city'
 
   resources :commissions, only: [ :index, :show, :new, :create ]
   resources :commission_letters, only: [:index]

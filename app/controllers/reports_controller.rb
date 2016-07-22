@@ -3,6 +3,8 @@ class ReportsController < ApplicationController
   skip_after_action :verify_authorized, :verify_policy_scoped
   helper_method :month_diff
 
+  YMD = '%Y-%m-%d'
+
   ##
   # all games
   def annually_per_month_per_game
@@ -430,6 +432,7 @@ class ReportsController < ApplicationController
         g.price               AS price,
         c.categories          AS categories,
         c.winning             AS winning,
+        c.winning_amount      AS winnings_fund,
         g.volume              AS volume,
         SUM(s.sales)/g.price  AS sold,
         MIN(s.date)           AS started_on,
@@ -441,8 +444,9 @@ class ReportsController < ApplicationController
         INNER JOIN (
           SELECT 
             game_id, 
-            COUNT(*) AS categories,
-            SUM(count) AS winning
+            COUNT(*)    AS categories,
+            SUM(count)  AS winning,
+            SUM(amount*count) AS winning_amount
           FROM categories
           GROUP BY game_id
         ) AS c
@@ -455,6 +459,83 @@ class ReportsController < ApplicationController
     @last_sales_on = Sale.maximum(:date)
     respond_to do |fmt|
       fmt.json { render json: @general_info }
+      fmt.html 
+    end
+  end
+  
+  def sales_per_city
+    unless params[:from] and  params[:to]
+      @to   = Sale.maximum(:date)
+      @from = @to - 29
+    else
+      @from = Date.parse params[:from]
+      @to   = Date.parse params[:to]
+    end
+
+    term_sales = Sale.
+          select('s.terminal_id AS terminal_id, t.name AS name,' +
+                 ' t.city AS city, SUM(s.sales) AS sales').
+          joins('AS s INNER JOIN terminals AS t ON s.terminal_id = t.id').
+          where('s.date' => @from .. @to).
+          where('s.sales > 0.0').
+          group('s.terminal_id')
+
+    qry =<<-EOT
+      SELECT
+        ts.city                         AS city,
+        SUM(ts.sales)                   AS city_sales,
+        COUNT(DISTINCT ts.terminal_id)  AS term_count,
+        MIN(ts.sales)                   AS min_term_sales,
+        AVG(ts.sales)                   AS avg_term_sales,
+        MAX(ts.sales)                   AS max_term_sales
+
+      FROM (
+        SELECT
+          s.terminal_id   AS terminal_id,
+          t.city          AS city,
+          SUM(s.sales)    AS sales
+
+        FROM
+          sales AS s 
+          INNER JOIN terminals AS t
+            ON s.terminal_id = t.id
+
+        WHERE
+          s.date BETWEEN '#{ @from.strftime YMD }' AND '#{ @to.strftime YMD }'
+          AND s.sales > 0
+
+        GROUP BY s.terminal_id
+
+      ) AS ts
+      GROUP BY ts.city
+      ORDER BY term_count DESC
+    EOT
+
+    city_sales = ActiveRecord::Base.connection.execute qry
+    ts_arr = term_sales.to_a
+    cs_arr = city_sales.to_a
+
+    cs_arr.each do |r|
+      t = ts_arr.select {|ts| ts['city'] == r['city'] and ts['sales'] >= r['max_term_sales']}[0]
+      r.merge!({
+        'terminal_id'   => t['terminal_id'],
+        'terminal_name' => t['name'],
+      })
+    end
+    @total_sales  = cs_arr.inject(0) {|s, x| s + x['city_sales']}
+    @city_sales   = cs_arr
+
+    respond_to do |fmt|
+      fmt.json { 
+        Rails.logger.info 'FROM JSON: Sales per city'
+        render json: { 
+          from:         @from,
+          to:           @to,
+          total_sales:  @total_sales,
+          city_sales:   @city_sales,
+        }
+      }
+
       fmt.html 
     end
   end

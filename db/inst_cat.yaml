@@ -1,0 +1,561 @@
+---
+- :id: 1
+  :categories:
+  - :category: 1
+    :count: 2
+    :amount: 1100000
+    :desc: ''
+  - :category: 3
+    :count: 5
+    :amount: 100000
+    :desc: ''
+  - :category: 3
+    :count: 6
+    :amount: 50000
+    :desc: ''
+  - :category: 4
+    :count: 20
+    :amount: 10000
+    :desc: ''
+  - :category: 5
+    :count: 60
+    :amount: 5000
+    :desc: ''
+  - :category: 6
+    :count: 200
+    :amount: 2000
+    :desc: ''
+  - :category: 7
+    :count: 600
+    :amount: 1000
+    :desc: ''
+  - :category: 8
+    :count: 2000
+    :amount: 500
+    :desc: ''
+  - :category: 9
+    :count: 10000
+    :amount: 100
+    :desc: ''
+  - :category: 10
+    :count: 50000
+    :amount: 50
+    :desc: ''
+  - :category: 11
+    :count: 300000
+    :amount: 30
+    :desc: ''
+- :id: 7
+  :categories:
+  - :category: 1
+    :count: 10
+    :amount: 1030200
+    :desc: ''
+  - :category: 2
+    :count: 10
+    :amount: 100000
+    :desc: ''
+  - :category: 3
+    :count: 10
+    :amount: 50000
+    :desc: ''
+  - :category: 4
+    :count: 1000
+    :amount: 500
+    :desc: ''
+  - :category: 5
+    :count: 5000
+    :amount: 200
+    :desc: ''
+  - :category: 6
+    :count: 10000
+    :amount: 100
+    :desc: ''
+  - :category: 7
+    :count: 15000
+    :amount: 80
+    :desc: ''
+  - :category: 8
+    :count: 280000
+    :amount: 40
+    :desc: ''
+- :id: 8
+  :categories:
+  - :category: 1
+    :count: 15
+    :amount: 500000
+    :desc: ''
+  - :category: 2
+    :count: 5
+    :amount: 100000
+    :desc: ''
+  - :category: 3
+    :count: 50
+    :amount: 10000
+    :desc: ''
+  - :category: 4
+    :count: 100
+    :amount: 5000
+    :desc: ''
+  - :category: 5
+    :count: 500
+    :amount: 1000
+    :desc: ''
+  - :category: 6
+    :count: 1000
+    :amount: 500
+    :desc: ''
+  - :category: 7
+    :count: 5000
+    :amount: 100
+    :desc: ''
+  - :category: 8
+    :count: 50000
+    :amount: 50
+    :desc: ''
+  - :category: 9
+    :count: 350000
+    :amount: 30
+    :desc: ''
+- :id: 9
+  :categories:
+  - :category: 1
+    :count: 40
+    :amount: 500000
+    :desc: ''
+  - :category: 2
+    :count: 40
+    :amount: 25000
+    :desc: ''
+  - :category: 3
+    :count: 100
+    :amount: 4000
+    :desc: ''
+  - :category: 4
+    :count: 500
+    :amount: 800
+    :desc: ''
+  - :category: 5
+    :count: 1000
+    :amount: 400
+    :desc: ''
+  - :category: 6
+    :count: 5000
+    :amount: 240
+    :desc: ''
+  - :category: 7
+    :count: 10000
+    :amount: 120
+    :desc: ''
+  - :category: 8
+    :count: 30000
+    :amount: 80
+    :desc: ''
+  - :category: 9
+    :count: 630000
+    :amount: 40
+    :desc: ''
+- :id: 20
+  :categories:
+  - :category: 1
+    :count: 1
+    :amount: 1400000
+    :desc: ''
+  - :category: 2
+    :count: 2
+    :amount: 810000
+    :desc: ''
+  - :category: 3
+    :count: 10
+    :amount: 100000
+    :desc: ''
+  - :category: 4
+    :count: 200
+    :amount: 5000
+    :desc: ''
+  - :category: 5
+    :count: 2000
+    :amount: 500
+    :desc: ''
+  - :category: 6
+    :count: 5000
+    :amount: 300
+    :desc: ''
+  - :category: 7
+    :count: 5000
+    :amount: 200
+    :desc: ''
+  - :category: 8
+    :count: 20000
+    :amount: 150
+    :desc: ''
+  - :category: 9
+    :count: 30000
+    :amount: 100
+    :desc: ''
+  - :category: 10
+    :count: 280000
+    :amount: 50
+    :desc: ''
+- :id: 21
+  :categories:
+  - :category: 1
+    :count: 5
+    :amount: 1000000
+    :desc: ''
+  - :category: 2
+    :count: 10
+    :amount: 100000
+    :desc: ''
+  - :category: 3
+    :count: 100
+    :amount: 10000
+    :desc: ''
+  - :category: 4
+    :count: 1000
+    :amount: 1000
+    :desc: ''
+  - :category: 5
+    :count: 5000
+    :amount: 200
+    :desc: ''
+  - :category: 6
+    :count: 20000
+    :amount: 100
+    :desc: ''
+  - :category: 7
+    :count: 25000
+    :amount: 80
+    :desc: ''
+  - :category: 8
+    :count: 300000
+    :amount: 40
+    :desc: ''
+- :id: 22
+  :categories:
+  - :category: 1
+    :count: 1
+    :amount: 300000
+    :desc: ''
+  - :category: 2
+    :count: 5
+    :amount: 100000
+    :desc: ''
+  - :category: 3
+    :count: 20
+    :amount: 5000
+    :desc: ''
+  - :category: 4
+    :count: 100
+    :amount: 1000
+    :desc: ''
+  - :category: 5
+    :count: 5000
+    :amount: 200
+    :desc: ''
+  - :category: 6
+    :count: 10000
+    :amount: 100
+    :desc: ''
+  - :category: 7
+    :count: 20000
+    :amount: 50
+    :desc: ''
+  - :category: 8
+    :count: 135000
+    :amount: 25
+    :desc: ''
+- :id: 23
+  :categories:
+  - :category: 1
+    :count: 30
+    :amount: 60000
+    :desc: ''
+  - :category: 2
+    :count: 100
+    :amount: 5000
+    :desc: ''
+  - :category: 3
+    :count: 500
+    :amount: 1000
+    :desc: ''
+  - :category: 4
+    :count: 1000
+    :amount: 500
+    :desc: ''
+  - :category: 5
+    :count: 3000
+    :amount: 200
+    :desc: ''
+  - :category: 6
+    :count: 15000
+    :amount: 100
+    :desc: ''
+  - :category: 7
+    :count: 81000
+    :amount: 50
+    :desc: ''
+- :id: 24
+  :categories:
+  - :category: 1
+    :count: 30
+    :amount: 30000
+    :desc: ''
+  - :category: 2
+    :count: 60
+    :amount: 10000
+    :desc: ''
+  - :category: 3
+    :count: 100
+    :amount: 5000
+    :desc: ''
+  - :category: 4
+    :count: 500
+    :amount: 1000
+    :desc: ''
+  - :category: 5
+    :count: 1000
+    :amount: 500
+    :desc: ''
+  - :category: 6
+    :count: 2000
+    :amount: 300
+    :desc: ''
+  - :category: 7
+    :count: 10000
+    :amount: 80
+    :desc: ''
+  - :category: 8
+    :count: 15000
+    :amount: 60
+    :desc: ''
+  - :category: 9
+    :count: 30000
+    :amount: 40
+    :desc: ''
+  - :category: 10
+    :count: 300000
+    :amount: 20
+    :desc: ''
+- :id: 25
+  :categories:
+  - :category: 1
+    :count: 7
+    :amount: 1505000
+    :desc: ''
+  - :category: 2
+    :count: 10
+    :amount: 50000
+    :desc: ''
+  - :category: 3
+    :count: 200
+    :amount: 5000
+    :desc: ''
+  - :category: 4
+    :count: 1000
+    :amount: 1000
+    :desc: ''
+  - :category: 5
+    :count: 3000
+    :amount: 200
+    :desc: ''
+  - :category: 6
+    :count: 5000
+    :amount: 150
+    :desc: ''
+  - :category: 7
+    :count: 25000
+    :amount: 100
+    :desc: ''
+  - :category: 8
+    :count: 200000
+    :amount: 50
+    :desc: ''
+  - :category: 9
+    :count: 120000
+    :amount: 30
+    :desc: ''
+- :id: 30
+  :categories:
+  - :category: 1
+    :count: 20
+    :amount: 560000
+    :desc: ''
+  - :category: 2
+    :count: 50000
+    :amount: 80
+    :desc: ''
+  - :category: 3
+    :count: 280000
+    :amount: 40
+    :desc: ''
+- :id: 44
+  :categories:
+  - :category: 1
+    :count: 1
+    :amount: 500000
+    :desc: ''
+  - :category: 2
+    :count: 5
+    :amount: 100000
+    :desc: ''
+  - :category: 3
+    :count: 10
+    :amount: 10000
+    :desc: ''
+  - :category: 4
+    :count: 20
+    :amount: 5000
+    :desc: ''
+  - :category: 5
+    :count: 300
+    :amount: 1000
+    :desc: ''
+  - :category: 6
+    :count: 1000
+    :amount: 500
+    :desc: ''
+  - :category: 7
+    :count: 10000
+    :amount: 100
+    :desc: ''
+  - :category: 8
+    :count: 30000
+    :amount: 50
+    :desc: ''
+  - :category: 9
+    :count: 150000
+    :amount: 30
+    :desc: ''
+- :id: 45
+  :categories:
+  - :category: 1
+    :count: 35
+    :amount: 130000
+    :desc: ''
+  - :category: 2
+    :count: 20000
+    :amount: 50
+    :desc: ''
+  - :category: 3
+    :count: 135000
+    :amount: 30
+    :desc: ''
+- :id: 50
+  :categories:
+  - :category: 1
+    :count: 2
+    :amount: 1100000
+    :desc: ''
+  - :category: 2
+    :count: 3
+    :amount: 500000
+    :desc: ''
+  - :category: 3
+    :count: 5
+    :amount: 100000
+    :desc: ''
+  - :category: 4
+    :count: 10
+    :amount: 50000
+    :desc: ''
+  - :category: 5
+    :count: 20
+    :amount: 10000
+    :desc: ''
+  - :category: 6
+    :count: 100
+    :amount: 5000
+    :desc: ''
+  - :category: 7
+    :count: 1000
+    :amount: 500
+    :desc: ''
+  - :category: 8
+    :count: 10000
+    :amount: 100
+    :desc: ''
+  - :category: 9
+    :count: 100000
+    :amount: 50
+    :desc: ''
+  - :category: 10
+    :count: 110000
+    :amount: 30
+    :desc: ''
+- :id: 60
+  :categories:
+  - :category: 1
+    :count: 5
+    :amount: 500000
+    :desc: ''
+  - :category: 2
+    :count: 10
+    :amount: 100000
+    :desc: ''
+  - :category: 3
+    :count: 100
+    :amount: 10000
+    :desc: ''
+  - :category: 4
+    :count: 1000
+    :amount: 1000
+    :desc: ''
+  - :category: 5
+    :count: 2000
+    :amount: 500
+    :desc: ''
+  - :category: 6
+    :count: 5000
+    :amount: 200
+    :desc: ''
+  - :category: 7
+    :count: 15000
+    :amount: 100
+    :desc: ''
+  - :category: 8
+    :count: 25000
+    :amount: 60
+    :desc: ''
+  - :category: 9
+    :count: 300000
+    :amount: 30
+    :desc: ''
+- :id: 61
+  :categories:
+  - :category: 1
+    :count: 5
+    :amount: 500000
+    :desc: ''
+  - :category: 2
+    :count: 10
+    :amount: 100000
+    :desc: ''
+  - :category: 3
+    :count: 100
+    :amount: 10000
+    :desc: ''
+  - :category: 4
+    :count: 1000
+    :amount: 1000
+    :desc: ''
+  - :category: 5
+    :count: 2000
+    :amount: 500
+    :desc: ''
+  - :category: 6
+    :count: 5000
+    :amount: 200
+    :desc: ''
+  - :category: 7
+    :count: 15000
+    :amount: 100
+    :desc: ''
+  - :category: 8
+    :count: 25000
+    :amount: 60
+    :desc: ''
+  - :category: 9
+    :count: 300000
+    :amount: 30
+    :desc: ''

@@ -1,0 +1,53 @@
+<div ng-app='reports' ng-controller='SalesPerCity'>
+  <div class='page-header'>
+    <h3>Sales per city for {{ from }}&mdash;{{ to }}, total
+      <mark>{{ thou_sep(total_sales) }}</mark></h3>
+    <form class="form-inline" name='period_form'>
+      <div class="form-group" ng-class="{ 'has-error': period_form.from.$invalid }">
+        <label for="from">From</label>
+        <input type="text" class="form-control" id="from" placeholder="YYYY-mm-dd"
+               name='from' ng-pattern='/^\d{4}-\d\d-\d\d$/' ng-model='from'>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error': period_form.to.$invalid }">
+        <label for="to">To</label>
+        <input type="text" class="form-control" id="to" placeholder="YYYY-mm-dd"
+               name='to' ng-pattern='/^\d{4}-\d\d-\d\d$/' ng-model='to'>
+      </div>
+      <button class='btn btn-primary'
+              ng-disabled="period_form.$invalid || period_form.$pristine">Get sales</button>
+    </form>
+  </div>
+  
+  <div class='row'>
+    <div class='table-responsive'>
+      <table class='table table-hover table-condensed table-striped' style='font-size: 95%'>
+        <thead>
+          <tr>
+            <th>city</th>
+            <th style='text-align: right'>sales</th>
+            <th>share</th>
+            <th style='text-align: center'>term.</th>
+            <th style='text-align: right'>min</th>
+            <th style='text-align: right'>avg</th>
+            <th style='text-align: right'>max</th>
+            <th style='text-align: center'>id</th>
+            <th style='text-align: right'>name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='cs in city_sales'>
+            <td>{{ cs.city }}</td>
+            <td style='text-align: right'>{{ thou_sep(cs.city_sales) }}</td>
+            <td>{{ (cs.city_sales*100.0/total_sales).toFixed(2) }}%</td>
+            <td style='text-align: center'>{{ cs.term_count }}</td>
+            <td style='text-align: right'>{{ thou_sep(cs.min_term_sales) }}</td>
+            <td style='text-align: right'>{{ thou_sep(cs.avg_term_sales.toFixed(0)) }}</td>
+            <td style='text-align: right'>{{ thou_sep(cs.max_term_sales) }}</td>
+            <td style='text-align: center'>{{ cs.terminal_id }}</td>
+            <td style='text-align: right'>{{ cs.terminal_name }}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+
