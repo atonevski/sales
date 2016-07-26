@@ -481,6 +481,7 @@ class ReportsController < ApplicationController
           group('s.terminal_id')
 
     qry =<<-EOT
+
       SELECT
         ts.city                         AS city,
         SUM(ts.sales)                   AS city_sales,
@@ -488,24 +489,19 @@ class ReportsController < ApplicationController
         MIN(ts.sales)                   AS min_term_sales,
         AVG(ts.sales)                   AS avg_term_sales,
         MAX(ts.sales)                   AS max_term_sales
-
       FROM (
         SELECT
           s.terminal_id   AS terminal_id,
           t.city          AS city,
           SUM(s.sales)    AS sales
-
         FROM
           sales AS s 
           INNER JOIN terminals AS t
             ON s.terminal_id = t.id
-
         WHERE
           s.date BETWEEN '#{ @from.strftime YMD }' AND '#{ @to.strftime YMD }'
           AND s.sales > 0
-
         GROUP BY s.terminal_id
-
       ) AS ts
       GROUP BY ts.city
       ORDER BY term_count DESC

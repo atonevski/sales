@@ -25,7 +25,7 @@ input[type=number].no-spinner::-webkit-outer-spin-button {
 }
 
 /* at-style buttons */
-a.at-new, a.at-edit, a.at-delete, a.at-archive, a.at-pdf {
+a.at-new, a.at-edit, a.at-delete, a.at-archive, a.at-pdf, a.at-get {
   @extend .btn;
 
   &:before {
@@ -71,6 +71,14 @@ a.at-pdf {
 
   &:before {
     @extend .fa-file-pdf-o;
+  }
+}
+
+a.at-get {
+  @extend .btn-primary;
+
+  &:before {
+    @extend .fa-arrow-down;
   }
 }
 /* nav icons */

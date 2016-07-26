@@ -136,7 +136,7 @@ angular.module('reports').controller 'SalesPerCity', ($scope, $http) ->
   $http({
     url:      '/sales-per-city',
     method:   'GET',
-    params:   { from: '2016-07-01', to: '2016-07-20' },
+    params:   { },
     headers:  { Accept: 'application/json' }
   }).then (res) ->
       $scope.from         = res.data.from
@@ -144,3 +144,15 @@ angular.module('reports').controller 'SalesPerCity', ($scope, $http) ->
       $scope.total_sales  = res.data.total_sales
       $scope.city_sales   = res.data.city_sales
       console.log 'Sales per city: initial load'
+  $scope.get_sales = () ->
+    $http({
+      url:      '/sales-per-city',
+      method:   'GET',
+      params:   { from: $scope.from, to: $scope.to },
+      headers:  { Accept: 'application/json' }
+    }).then (res) ->
+        $scope.from         = res.data.from
+        $scope.to           = res.data.to
+        $scope.total_sales  = res.data.total_sales
+        $scope.city_sales   = res.data.city_sales
+        console.log 'Sales per city: initial load'

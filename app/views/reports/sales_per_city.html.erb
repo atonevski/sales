@@ -2,7 +2,8 @@
   <div class='page-header'>
     <h3>Sales per city for {{ from }}&mdash;{{ to }}, total
       <mark>{{ thou_sep(total_sales) }}</mark></h3>
-    <form class="form-inline" name='period_form'>
+    <h4>&nbsp;</h4>
+    <form class="form-inline" name='period_form' style='font-size: 90%'>
       <div class="form-group" ng-class="{ 'has-error': period_form.from.$invalid }">
         <label for="from">From</label>
         <input type="text" class="form-control" id="from" placeholder="YYYY-mm-dd"
@@ -13,8 +14,9 @@
         <input type="text" class="form-control" id="to" placeholder="YYYY-mm-dd"
                name='to' ng-pattern='/^\d{4}-\d\d-\d\d$/' ng-model='to'>
       </div>
-      <button class='btn btn-primary'
-              ng-disabled="period_form.$invalid || period_form.$pristine">Get sales</button>
+      <a class='at-get'
+              ng-disabled="period_form.$invalid || period_form.$pristine"
+              ng-click='get_sales()'>Get sales</a>
     </form>
   </div>
   
@@ -42,9 +44,10 @@
             <td style='text-align: center'>{{ cs.term_count }}</td>
             <td style='text-align: right'>{{ thou_sep(cs.min_term_sales) }}</td>
             <td style='text-align: right'>{{ thou_sep(cs.avg_term_sales.toFixed(0)) }}</td>
-            <td style='text-align: right'>{{ thou_sep(cs.max_term_sales) }}</td>
-            <td style='text-align: center'>{{ cs.terminal_id }}</td>
-            <td style='text-align: right'>{{ cs.terminal_name }}</td>
+            <td class='text-warning' style='text-align: right'>
+              {{ thou_sep(cs.max_term_sales) }}</td>
+            <td class='text-warning' style='text-align: center'>{{ cs.terminal_id }}</td>
+            <td class='text-warning' style='text-align: right'>{{ cs.terminal_name }}</td>
           </tr>
         </tbody>
       </table>
