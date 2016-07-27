@@ -3,7 +3,8 @@ class ReportsController < ApplicationController
   skip_after_action :verify_authorized, :verify_policy_scoped
   helper_method :month_diff
 
-  YMD = '%Y-%m-%d'
+  YMD       = '%Y-%m-%d'
+  TOP_COUNT = 5
 
   ##
   # all games
@@ -529,6 +530,66 @@ class ReportsController < ApplicationController
           to:           @to,
           total_sales:  @total_sales,
           city_sales:   @city_sales,
+        }
+      }
+
+      fmt.html 
+    end
+  end
+
+# 
+# game:
+#
+# id name price total-sales share
+#
+# terminal
+#
+# id name city total-sales share
+#
+  def top_terminals_per_game
+    unless params[:from] and  params[:to]
+      @to   = Sale.maximum(:date)
+      @from = @to - 29
+    else
+      @from = Date.parse params[:from]
+      @to   = Date.parse params[:to]
+    end
+    @top_count = TOP_COUNT
+    @top_count = params[:top_count].to_i if params[:top_count]
+    @total_sales = Sale.where(date: @from .. @to).sum(:sales)
+
+    @game_sales = Sale.
+        select('s.game_id AS game_id, g.name AS name, g.price AS price, SUM(s.sales) AS total_sales').
+        joins('AS s INNER JOIN games AS g ON s.game_id = g.id').
+        where('s.date' => @from .. @to).
+        where('s.sales > 0').
+        group('s.game_id').
+        order('s.game_id').as_json # to_a #.map {|r| r.to_h}
+
+    @game_sales.each do |g|
+      g.merge!({
+      'top_terminals' => Sale.
+          select('s.terminal_id AS terminal_id, t.name AS name, t.city AS city, SUM(s.sales) AS total_sales').
+          joins('AS s INNER JOIN terminals AS t ON s.terminal_id = t.id').
+          where('s.date' => @from .. @to).
+          where('s.game_id' => g['game_id']).
+          where('s.sales > 0').
+          group('s.terminal_id').
+          order('total_sales DESC').
+          limit(@top_count).
+          to_a
+      })
+    end
+
+    respond_to do |fmt|
+      fmt.json { 
+        Rails.logger.info 'FROM JSON: Top terminals per game'
+        render json: { 
+          from:         @from,
+          to:           @to,
+          top_count:    @top_count,
+          total_sales:  @total_sales,
+          game_sales:   @game_sales,
         }
       }
 

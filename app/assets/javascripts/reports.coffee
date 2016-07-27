@@ -114,7 +114,25 @@ angular.module('reports').controller 'InstantsAnnuallyPerMonthPerGame', ($scope,
         tot ||= 0
         tot += gt[month]
     tot
+##
+# thousands separated number
+# second argument === 'mk' will return mk thousand separated format
+#
+thou_sep = (n) ->
+  return n unless n?
 
+  n = n.toString()
+  n = n.replace /(\d+?)(?=(\d{3})+(\D|$))/g, '$1,'
+  return n unless arguments.length > 1
+  if arguments[1] is 'mk'
+    n = n.replace /\./g, ';'
+    n = n.replace /,/g, '.'
+    n = n.replace /;/g, ','
+  n # return this value
+
+##
+# SalesPerCity controller
+#
 angular.module('reports').controller 'SalesPerCity', ($scope, $http) ->
 
   addDaysTo = (days, date) ->
@@ -144,6 +162,7 @@ angular.module('reports').controller 'SalesPerCity', ($scope, $http) ->
       $scope.total_sales  = res.data.total_sales
       $scope.city_sales   = res.data.city_sales
       console.log 'Sales per city: initial load'
+
   $scope.get_sales = () ->
     $http({
       url:      '/sales-per-city',
@@ -155,4 +174,38 @@ angular.module('reports').controller 'SalesPerCity', ($scope, $http) ->
         $scope.to           = res.data.to
         $scope.total_sales  = res.data.total_sales
         $scope.city_sales   = res.data.city_sales
-        console.log 'Sales per city: initial load'
+        console.log 'Sales per city: request'
+
+
+##
+# TopTerminalsPerGame controller
+#
+angular.module('reports').controller 'TopTerminalsPerGame', ($scope, $http) ->
+  $scope.thou_sep = thou_sep
+
+  $http({
+    url:      '/top-terminals-per-game',
+    method:   'GET',
+    params:   { },
+    headers:  { Accept: 'application/json' }
+  }).then (res) ->
+      $scope.from         = res.data.from
+      $scope.to           = res.data.to
+      $scope.top_count    = res.data.top_count
+      $scope.total_sales  = res.data.total_sales
+      $scope.game_sales   = res.data.game_sales
+      console.log 'Top terminals per game: initial load'
+
+  $scope.get_sales = () ->
+    $http({
+      url:      '/top-terminals-per-game',
+      method:   'GET',
+      params:   { from: $scope.from, to: $scope.to, top_count: $scope.top_count },
+      headers:  { Accept: 'application/json' }
+    }).then (res) ->
+        $scope.from         = res.data.from
+        $scope.to           = res.data.to
+        $scope.top_count    = res.data.top_count
+        $scope.total_sales  = res.data.total_sales
+        $scope.game_sales   = res.data.game_sales
+        console.log 'Top terminals per game: request'
