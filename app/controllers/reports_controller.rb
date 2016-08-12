@@ -454,6 +454,7 @@ class ReportsController < ApplicationController
           ON s.game_id = c.game_id
       WHERE
         g.type = 'INSTANT'
+        AND s.sales > 0
       GROUP BY g.id
     EOT
     @general_info = ActiveRecord::Base.connection.execute qry
@@ -603,7 +604,7 @@ private
     d2 = Date.parse d2 unless d2.instance_of? Date
     d1, d2 = [d2, d1] if d1 > d2
       
-    d2.year*12 + d2.month - d1.year*12 - d1.month
+    d2.year*12 + d2.month - d1.year*12 - d1.month + 1
     # jan 2017 - nov 2016: 12 + 1 - 11 => 2
   end
 end
