@@ -48,7 +48,7 @@
           <td align='right'><%= number_with_delimiter cat.count %></td>
           <td align='right'>
             <%= number_with_precision cat.amount, precision: 0, delimiter: ',' %></td>
-          <td><%= cat.desc.truncate(40) %></td>
+          <td align='center'><%= cat.desc.truncate(40) %></td>
         </tr>
       <% end %>
     </tbody>
